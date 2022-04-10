@@ -1,4 +1,4 @@
-rootProject.name = "ktor-api-key"
+rootProject.name = "ktor-openapi-generator"
 
 pluginManagement {
     repositories {
