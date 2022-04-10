@@ -4,6 +4,12 @@ The Ktor OpenAPI Generator is a library to automatically generate the descriptor
 
 _This version by [LukasForst](https://github.com/LukasForst) was migrated to Ktor `2.0.0` and is hosted on Maven Central_.
 
+```kotlin
+dependencies { 
+    implementation("dev.forst", "ktor-openapi-generator", "0.4.0")
+}
+```
+
 Ktor OpenAPI Generator is:
 - Modular
 - Strongly typed
@@ -25,18 +31,3 @@ Extra Features:
 ## Examples
 
 Take a look at [a few examples](https://github.com/papsign/Ktor-OpenAPI-Generator/wiki/A-few-examples)
-
-### Who is using it?
-
-* <https://github.com/SerVB/e-shop>
-
-And others... (add your name above)
-
-## Installation
-
-### Gradle
-```kotlin
-dependencies { 
-    implementation("dev.forst", "ktor-openapi-generator", "0.4.0")
-}
-```
