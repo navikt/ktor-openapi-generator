@@ -35,7 +35,7 @@ dependencies {
     implementation("org.slf4j:slf4j-api:1.7.36")
 
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.2") // needed for multipart parsing
-    implementation("org.webjars:swagger-ui:4.9.1")
+    implementation("org.webjars:swagger-ui:3.25.0")
 
     implementation("org.reflections:reflections:0.10.2") // only used while initializing
 
