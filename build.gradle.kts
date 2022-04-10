@@ -11,7 +11,6 @@ plugins {
 
     id("net.nemerosa.versioning") version "2.15.1"
     id("org.jetbrains.dokka") version "1.6.10"
-    id("io.gitlab.arturbosch.detekt") version "1.19.0"
 }
 
 group = "dev.forst"
@@ -59,11 +58,6 @@ dependencies {
     testImplementation("org.junit.jupiter", "junit-jupiter-api", junitVersion) // junit testing framework
     testImplementation("org.junit.jupiter", "junit-jupiter-params", junitVersion) // generated parameters for tests
     testRuntimeOnly("org.junit.jupiter", "junit-jupiter-engine", junitVersion) // testing runtime
-}
-
-detekt {
-    config = files("detekt.yml")
-    parallel = true
 }
 
 tasks {

@@ -3,7 +3,7 @@ package com.papsign.ktor.openapigen.parameters.parsers.converters
 import kotlin.reflect.KClass
 import kotlin.reflect.KType
 
-open class ConverterSelectorFactory(vararg selectors: ConverterSelector): ConverterFactory {
+open class ConverterSelectorFactory(vararg selectors: ConverterSelector) : ConverterFactory {
     private val converterSelectors = selectors.toMutableList()
 
     override fun buildConverter(type: KType): Converter? {
@@ -11,8 +11,7 @@ open class ConverterSelectorFactory(vararg selectors: ConverterSelector): Conver
     }
 
     fun <T : ConverterSelector> injectConverterBefore(kclass: KClass<T>, converterSelector: ConverterSelector) {
-        converterSelectors.find { kclass.isInstance(it) }
-            ?.let {
+        converterSelectors.find { kclass.isInstance(it) }?.let {
                 val index = converterSelectors.indexOf(it)
                 val shiftIndex = if (index <= 0) 0 else index
 
@@ -31,13 +30,11 @@ open class ConverterSelectorFactory(vararg selectors: ConverterSelector): Conver
                     }
                     previous?.let { converterSelectors.add(it) }
                 }
-            }
-            ?: converterSelectors.add(converterSelector)
+            } ?: converterSelectors.add(converterSelector)
     }
 
     fun <T : ConverterSelector> injectConverterAfter(kclass: KClass<T>, converterSelector: ConverterSelector) {
-        converterSelectors.find { kclass.isInstance(it) }
-            ?.let {
+        converterSelectors.find { kclass.isInstance(it) }?.let {
                 val index = converterSelectors.indexOf(it)
 
                 if (index == (converterSelectors.size - 1)) {
@@ -55,8 +52,7 @@ open class ConverterSelectorFactory(vararg selectors: ConverterSelector): Conver
                     }
                     previous?.let { converterSelectors.add(it) }
                 }
-            }
-            ?: converterSelectors.add(converterSelector)
+            } ?: converterSelectors.add(converterSelector)
     }
 
     fun <T : ConverterSelector> removeConverter(kclass: KClass<T>) {
