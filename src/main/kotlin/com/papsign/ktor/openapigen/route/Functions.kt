@@ -10,9 +10,9 @@ import com.papsign.ktor.openapigen.modules.registerModule
 import com.papsign.ktor.openapigen.route.modules.HttpMethodProviderModule
 import com.papsign.ktor.openapigen.route.modules.PathProviderModule
 import io.ktor.http.HttpMethod
-import io.ktor.routing.HttpMethodRouteSelector
-import io.ktor.routing.createRouteFromPath
-import io.ktor.util.pipeline.ContextDsl
+import io.ktor.server.routing.HttpMethodRouteSelector
+import io.ktor.server.routing.createRouteFromPath
+import io.ktor.util.KtorDsl
 import kotlin.reflect.KType
 import kotlin.reflect.KTypeProjection
 import kotlin.reflect.KVariance
@@ -31,7 +31,7 @@ fun <T : OpenAPIRoute<T>> T.route(path: String): T {
 /**
  * Creates a new route matching the specified [path]
  */
-@ContextDsl
+@KtorDsl
 inline fun <TRoute : OpenAPIRoute<TRoute>> TRoute.route(path: String, crossinline fn: TRoute.() -> Unit) {
     route(path).fn()
 }
@@ -45,7 +45,7 @@ fun <TRoute : OpenAPIRoute<TRoute>> TRoute.method(method: HttpMethod): TRoute {
 /**
  * Creates a new route matching the specified [method]
  */
-@ContextDsl
+@KtorDsl
 inline fun <TRoute : OpenAPIRoute<TRoute>> TRoute.method(method: HttpMethod, crossinline fn: TRoute.() -> Unit) {
     method(method).fn()
 }
@@ -61,7 +61,7 @@ fun <TRoute : OpenAPIRoute<TRoute>> TRoute.provider(vararg content: ContentTypeP
 /**
  * Creates a new route matching the specified [content]
  */
-@ContextDsl
+@KtorDsl
 inline fun <TRoute : OpenAPIRoute<TRoute>> TRoute.provider(vararg content: ContentTypeProvider, crossinline fn: TRoute.() -> Unit) {
     provider(*content).fn()
 }
@@ -109,7 +109,7 @@ fun <TRoute : OpenAPIRoute<TRoute>> TRoute.tag(tag: APITag): TRoute {
  * @param tag the tag to apply
  * @param fn the block where the sub routes are defined
  */
-@ContextDsl
+@KtorDsl
 inline fun <TRoute : OpenAPIRoute<TRoute>> TRoute.tag(tag: APITag, crossinline fn: TRoute.() -> Unit) {
     tag(tag).fn()
 }

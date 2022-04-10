@@ -14,17 +14,17 @@ import com.papsign.ktor.openapigen.route.response.respond
 import com.papsign.ktor.openapigen.route.route
 import com.papsign.ktor.openapigen.schema.namer.DefaultSchemaNamer
 import com.papsign.ktor.openapigen.schema.namer.SchemaNamer
-import io.ktor.application.application
-import io.ktor.application.call
-import io.ktor.application.install
-import io.ktor.features.ContentNegotiation
-import io.ktor.jackson.jackson
-import io.ktor.response.respond
-import io.ktor.response.respondRedirect
-import io.ktor.routing.get
-import io.ktor.routing.routing
+import io.ktor.serialization.jackson.jackson
+import io.ktor.server.application.application
+import io.ktor.server.application.call
+import io.ktor.server.application.install
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.response.respond
+import io.ktor.server.response.respondRedirect
+import io.ktor.server.routing.get
+import io.ktor.server.routing.routing
 import kotlin.reflect.KType
 
 object Basic {
@@ -49,10 +49,10 @@ object Basic {
                     description = "Test server"
                 }
                 //optional
-                replaceModule(DefaultSchemaNamer, object: SchemaNamer {
+                replaceModule(DefaultSchemaNamer, object : SchemaNamer {
                     val regex = Regex("[A-Za-z0-9_.]+")
                     override fun get(type: KType): String {
-                       return type.toString().replace(regex) { it.value.split(".").last() }.replace(Regex(">|<|, "), "_")
+                        return type.toString().replace(regex) { it.value.split(".").last() }.replace(Regex(">|<|, "), "_")
                     }
                 })
             }
@@ -64,7 +64,7 @@ object Basic {
             // normal Ktor routing
             routing {
                 get("/openapi.json") {
-                    call.respond(application.openAPIGen.api.serialize())
+                    call.respond(this.application.openAPIGen.api.serialize())
                 }
 
                 get("/") {
@@ -81,7 +81,10 @@ object Basic {
                 }
 
                 route("inine").get<StringParam, StringResponse>(
-                    info("String Param Endpoint", "This is a String Param Endpoint"), // A Route module that describes an endpoint, it is optional
+                    info(
+                        "String Param Endpoint",
+                        "This is a String Param Endpoint"
+                    ), // A Route module that describes an endpoint, it is optional
                     example = StringResponse("Hi")
                 ) { params ->
                     respond(StringResponse(params.a))
@@ -89,7 +92,7 @@ object Basic {
 
                 route("block") {
                     // use Unit if there are no parameters / body / response
-                    post<Unit, StringUsable,  Set<StringUsable>>(
+                    post<Unit, StringUsable, Set<StringUsable>>(
                         info("String Post Endpoint", "This is a String Post Endpoint"),
                         exampleRequest = setOf(StringUsable("Ho")),
                         exampleResponse = StringUsable("Ho")

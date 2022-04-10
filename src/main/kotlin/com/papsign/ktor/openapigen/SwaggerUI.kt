@@ -1,7 +1,5 @@
 package com.papsign.ktor.openapigen
 
-import io.ktor.application.ApplicationCall
-import io.ktor.features.origin
 import io.ktor.http.ContentType
 import io.ktor.http.ContentType.Image.PNG
 import io.ktor.http.ContentType.Text.CSS
@@ -9,9 +7,11 @@ import io.ktor.http.ContentType.Text.Html
 import io.ktor.http.ContentType.Text.JavaScript
 import io.ktor.http.content.OutgoingContent
 import io.ktor.http.withCharset
-import io.ktor.request.host
-import io.ktor.request.port
-import io.ktor.response.respond
+import io.ktor.server.application.ApplicationCall
+import io.ktor.server.plugins.origin
+import io.ktor.server.request.host
+import io.ktor.server.request.port
+import io.ktor.server.response.respond
 import java.net.URL
 
 class SwaggerUi(private val basePath: String, private val version: String) {

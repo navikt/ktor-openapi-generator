@@ -11,12 +11,12 @@ import com.papsign.ktor.openapigen.model.schema.SchemaModel
 import com.papsign.ktor.openapigen.modules.ModuleProvider
 import com.papsign.ktor.openapigen.modules.ofType
 import com.papsign.ktor.openapigen.schema.builder.provider.FinalSchemaBuilderProviderModule
-import io.ktor.application.ApplicationCall
 import io.ktor.http.ContentType
 import io.ktor.http.content.PartData
 import io.ktor.http.content.forEachPart
 import io.ktor.http.content.streamProvider
-import io.ktor.request.receiveMultipart
+import io.ktor.server.application.ApplicationCall
+import io.ktor.server.request.receiveMultipart
 import io.ktor.util.asStream
 import io.ktor.util.pipeline.PipelineContext
 import java.io.InputStream

@@ -11,11 +11,11 @@ import com.papsign.ktor.openapigen.model.schema.DataFormat
 import com.papsign.ktor.openapigen.model.schema.DataType
 import com.papsign.ktor.openapigen.model.schema.SchemaModel
 import com.papsign.ktor.openapigen.modules.ModuleProvider
-import io.ktor.application.ApplicationCall
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
-import io.ktor.request.receiveStream
-import io.ktor.response.respondBytes
+import io.ktor.server.application.ApplicationCall
+import io.ktor.server.request.receiveStream
+import io.ktor.server.response.respondBytes
 import io.ktor.util.pipeline.PipelineContext
 import java.io.InputStream
 import kotlin.reflect.*

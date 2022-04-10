@@ -1,15 +1,13 @@
 package com.papsign.ktor.openapigen.modules
 
-import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.collections.LinkedHashSet
+import java.util.Collections
 import kotlin.reflect.KType
 import kotlin.reflect.full.isSubtypeOf
-import kotlin.reflect.full.isSupertypeOf
 
 class CachingModuleProvider(previous: Iterable<Pair<KType, OpenAPIModule>> = listOf()) : ModuleProvider<CachingModuleProvider> {
 
-    private val modules: MutableList<Pair<KType, OpenAPIModule>> = Collections.synchronizedList( synchronized(previous) { previous.toMutableList() } )
+    private val modules: MutableList<Pair<KType, OpenAPIModule>> =
+        Collections.synchronizedList(synchronized(previous) { previous.toMutableList() })
 
     override fun ofType(type: KType): Collection<OpenAPIModule> {
         val set = LinkedHashSet<OpenAPIModule>()
