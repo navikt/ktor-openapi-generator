@@ -9,7 +9,7 @@ import installJackson
 import installOpenAPI
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpMethod
-import io.ktor.routing.Routing
+import io.ktor.server.routing.Routing
 import io.ktor.server.testing.contentType
 import io.ktor.server.testing.handleRequest
 import io.ktor.server.testing.setBody

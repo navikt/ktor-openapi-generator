@@ -7,10 +7,11 @@ import com.papsign.ktor.openapigen.exceptions.OpenAPIRequiredFieldException
 import com.papsign.ktor.openapigen.route.apiRouting
 import com.papsign.ktor.openapigen.route.path.normal.get
 import com.papsign.ktor.openapigen.route.response.respond
-import io.ktor.application.*
-import io.ktor.features.*
 import io.ktor.http.*
-import io.ktor.response.*
+import io.ktor.server.application.Application
+import io.ktor.server.application.install
+import io.ktor.server.plugins.statuspages.StatusPages
+import io.ktor.server.response.respond
 import io.ktor.server.testing.*
 import kotlin.test.*
 
@@ -32,7 +33,7 @@ class NonStrictEnumTestServer {
         private fun Application.nullableEnum() {
             install(OpenAPIGen)
             install(StatusPages) {
-                exception<OpenAPIBadContentException> { e ->
+                exception<OpenAPIBadContentException> { call, e ->
                     call.respond(HttpStatusCode.BadRequest, e.localizedMessage)
                 }
             }
@@ -49,10 +50,10 @@ class NonStrictEnumTestServer {
         private fun Application.nonNullableEnum() {
             install(OpenAPIGen)
             install(StatusPages) {
-                exception<OpenAPIRequiredFieldException> { e ->
+                exception<OpenAPIRequiredFieldException> { call, e ->
                     call.respond(HttpStatusCode.BadRequest, e.localizedMessage)
                 }
-                exception<OpenAPIBadContentException> { e ->
+                exception<OpenAPIBadContentException> { call, e ->
                     call.respond(HttpStatusCode.BadRequest, e.localizedMessage)
                 }
             }

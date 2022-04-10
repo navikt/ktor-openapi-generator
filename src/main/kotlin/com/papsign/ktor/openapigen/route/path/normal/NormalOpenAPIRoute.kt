@@ -4,7 +4,7 @@ import com.papsign.ktor.openapigen.modules.CachingModuleProvider
 import com.papsign.ktor.openapigen.route.OpenAPIRoute
 import com.papsign.ktor.openapigen.route.response.OpenAPIPipelineResponseContext
 import com.papsign.ktor.openapigen.route.response.ResponseContextImpl
-import io.ktor.routing.Route
+import io.ktor.server.routing.Route
 import kotlin.reflect.KType
 import kotlin.reflect.typeOf
 

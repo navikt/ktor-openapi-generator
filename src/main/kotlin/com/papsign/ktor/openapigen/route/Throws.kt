@@ -4,11 +4,11 @@ import com.papsign.ktor.openapigen.APIException
 import com.papsign.ktor.openapigen.modules.providers.ThrowInfoProvider
 import com.papsign.ktor.openapigen.modules.registerModule
 import com.papsign.ktor.openapigen.route.util.createConstantChild
-import io.ktor.application.ApplicationCall
-import io.ktor.application.ApplicationCallPipeline
-import io.ktor.application.call
 import io.ktor.http.HttpStatusCode
-import io.ktor.response.respond
+import io.ktor.server.application.ApplicationCall
+import io.ktor.server.application.ApplicationCallPipeline
+import io.ktor.server.application.call
+import io.ktor.server.response.respond
 import io.ktor.util.pipeline.PipelineContext
 import kotlinx.coroutines.coroutineScope
 import kotlin.reflect.KClass
