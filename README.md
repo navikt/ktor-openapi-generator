@@ -1,8 +1,8 @@
 # Ktor OpenAPI Generator
-[![](https://jitpack.io/v/papsign/Ktor-OpenAPI-Generator.svg)](https://jitpack.io/#papsign/Ktor-OpenAPI-Generator)
-[![Build](https://github.com/papsign/Ktor-OpenAPI-Generator/workflows/Build/badge.svg)](https://github.com/papsign/Ktor-OpenAPI-Generator/actions)
 
 The Ktor OpenAPI Generator is a library to automatically generate the descriptor as you route your ktor application.
+
+_This version by [LukasForst](https://github.com/LukasForst) was migrated to Ktor `2.0.0` and is hosted on Maven Central_.
 
 Ktor OpenAPI Generator is:
 - Modular
@@ -35,42 +35,8 @@ And others... (add your name above)
 ## Installation
 
 ### Gradle
-
-Step 1. Add the JitPack repository to your build file:
-```groovy
-allprojects {
-    repositories {
-        ...
-        maven { url 'https://jitpack.io' }
-    }
-}
-```
-Step 2. Add the dependency:
-```groovy
-dependencies {
-        implementation 'com.github.papsign:Ktor-OpenAPI-Generator:-SNAPSHOT'
-}
-```
-
-### Git Submodule
-Install the submodule:
-```shell
-git submodule add https://github.com/papsign/Ktor-OpenAPI-Generator.git openapigen
-```
-
-Declare the folder in settings.gradle:
-```groovy
-...
-include 'openapigen'
-```
-Declare the dependency in the main build.gradle
-```groovy
-apply plugin: 'kotlin'
-
-...
-
-dependencies {
-    compile project(":openapigen")
-    ...
+```kotlin
+dependencies { 
+    implementation("dev.forst", "ktor-openapi-generator", "0.4.0")
 }
 ```
