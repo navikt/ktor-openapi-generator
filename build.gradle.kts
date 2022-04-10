@@ -77,11 +77,11 @@ tasks {
 
         dokkaSourceSets {
             configureEach {
-                displayName.set("Ktor API Key Authentication Provider")
+                displayName.set("Ktor OpenAPI/Swagger 3 Generator")
 
                 sourceLink {
                     localDirectory.set(file("src/main/kotlin"))
-                    remoteUrl.set(URL("https://github.com/LukasForst/ktor-api-key/tree/master/src/main/kotlin"))
+                    remoteUrl.set(URL("https://github.com/LukasForst/ktor-openapi-generator/tree/master/src/main/kotlin"))
                     remoteLineSuffix.set("#L")
                 }
             }
@@ -112,17 +112,21 @@ publishing {
             artifact(javadocJar)
 
             pom {
-                name.set("Ktor API Key Authentication Provider")
-                description.set("Native API Key authentication in Ktor.")
-                url.set("https://ktor-api-key.forst.dev")
+                name.set("Ktor OpenAPI/Swagger 3 Generator")
+                description.set("The Ktor OpenAPI Generator is a library to automatically generate the descriptor as you route your ktor application.")
+                url.set("https://github.com/LukasForst/ktor-openapi-generator")
                 packaging = "jar"
                 licenses {
                     license {
-                        name.set("MIT")
-                        url.set("https://mit-license.org/license.txt")
+                        name.set("Apache-2.0 License")
+                        url.set("https://github.com/LukasForst/ktor-openapi-generator/blob/master/LICENSE")
                     }
                 }
                 developers {
+                    developer {
+                        id.set("wicpar")
+                        name.set("Frédéric Nieto")
+                    }
                     developer {
                         id.set("lukasforst")
                         name.set("Lukas Forst")
@@ -130,8 +134,8 @@ publishing {
                     }
                 }
                 scm {
-                    connection.set("scm:git:git://github.com/LukasForst/ktor-api-key.git")
-                    url.set("https://github.com/LukasForst/ktor-api-key")
+                    connection.set("scm:git:git://github.com/LukasForst/ktor-openapi-generator.git")
+                    url.set("https://github.com/LukasForst/ktor-openapi-generator")
                 }
             }
         }
