@@ -13,17 +13,25 @@ import com.papsign.ktor.openapigen.modules.ModuleProvider
 import com.papsign.ktor.openapigen.modules.ofType
 import com.papsign.ktor.openapigen.schema.builder.provider.FinalSchemaBuilderProviderModule
 import com.papsign.ktor.openapigen.unitKType
-import io.ktor.http.*
+import io.ktor.http.ContentType
+import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.ApplicationCall
+import io.ktor.server.application.PluginBuilder
+import io.ktor.server.application.PluginInstance
 import io.ktor.server.application.call
+import io.ktor.server.application.pluginOrNull
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiationConfig
 import io.ktor.server.request.receive
 import io.ktor.server.response.respond
-import io.ktor.util.pipeline.*
+import io.ktor.util.pipeline.PipelineContext
 import io.ktor.util.reflect.TypeInfo
 import io.ktor.util.reflect.platformType
+import kotlin.reflect.KProperty1
 import kotlin.reflect.KType
 import kotlin.reflect.full.findAnnotation
-import kotlin.reflect.jvm.javaType
+import kotlin.reflect.full.memberProperties
+import kotlin.reflect.jvm.isAccessible
 import kotlin.reflect.jvm.jvmErasure
 
 /**
@@ -35,13 +43,36 @@ object KtorContentProvider : ContentTypeProvider, BodyParser, ResponseSerializer
     private var contentTypes: Set<ContentType>? = null
 
     private fun initContentTypes(apiGen: OpenAPIGen): Set<ContentType>? {
-        // TODO get content negotiation here
-//        val a = apiGen.pipeline.pluginOrNull(ContentNegotiation)?.builder
+        val reflectedContentTypes = apiGen.pipeline.pluginOrNull(ContentNegotiation)
+            ?.getPrivateProperty<PluginInstance, PluginBuilder<ContentNegotiationConfig>>("builder")
+            ?.pluginConfig
+            ?.getPrivateProperty<ContentNegotiationConfig, ArrayList<*>>("registrations")
+            ?.mapNotNull { it }
+            ?.mapNotNull { record ->
+                Class.forName("io.ktor.server.plugins.contentnegotiation.ConverterRegistration")
+                    .kotlin
+                    .memberProperties
+                    .firstOrNull { it.name == "contentType" }
+                    ?.apply { isAccessible = true }
+                    ?.let {
+                        @Suppress("UNCHECKED_CAST")
+                        it as KProperty1<Any, ContentType>
+                    }
+                    ?.get(record)
+            }
+            ?.toSet()
+            ?: emptySet()
 
-//        contentNegotiation = contentNegotiation ?: apiGen.pipeline.pluginOrNull(ContentNegotiation) ?: return null
-        contentTypes = setOf(ContentType.Application.Json)
+        contentTypes = reflectedContentTypes
         return contentTypes
     }
+
+    @Suppress("UNCHECKED_CAST")
+    inline fun <reified T : Any, R> T.getPrivateProperty(name: String): R? =
+        T::class.memberProperties
+            .firstOrNull { it.name == name }
+            ?.apply { isAccessible = true }
+            ?.get(this) as? R
 
     override fun <T> getMediaType(
         type: KType,

@@ -28,9 +28,9 @@ class OpenAPIGen(
     val globalModuleProvider = CachingModuleProvider()
 
     init {
-        (config.scanPackagesForModules + javaClass.`package`.name).forEach {
-            val reflections = Reflections(it)
-            log.debug("Registering modules in package $it")
+        (config.scanPackagesForModules + javaClass.`package`.name).forEach { packageName ->
+            val reflections = Reflections(packageName)
+            log.debug("Registering modules in package $packageName")
             val objects = reflections.getSubTypesOf(OpenAPIGenExtension::class.java).mapNotNull { it.kotlin.objectInstance }
             objects.forEach {
                 log.trace("Registering global module: ${it::class.simpleName}")
