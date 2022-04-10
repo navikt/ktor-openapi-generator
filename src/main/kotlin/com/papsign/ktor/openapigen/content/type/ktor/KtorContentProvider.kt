@@ -13,14 +13,17 @@ import com.papsign.ktor.openapigen.modules.ModuleProvider
 import com.papsign.ktor.openapigen.modules.ofType
 import com.papsign.ktor.openapigen.schema.builder.provider.FinalSchemaBuilderProviderModule
 import com.papsign.ktor.openapigen.unitKType
-import io.ktor.application.*
-import io.ktor.features.*
 import io.ktor.http.*
-import io.ktor.request.*
-import io.ktor.response.*
+import io.ktor.server.application.ApplicationCall
+import io.ktor.server.application.call
+import io.ktor.server.request.receive
+import io.ktor.server.response.respond
 import io.ktor.util.pipeline.*
+import io.ktor.util.reflect.TypeInfo
+import io.ktor.util.reflect.platformType
 import kotlin.reflect.KType
 import kotlin.reflect.full.findAnnotation
+import kotlin.reflect.jvm.javaType
 import kotlin.reflect.jvm.jvmErasure
 
 /**
@@ -28,12 +31,15 @@ import kotlin.reflect.jvm.jvmErasure
  */
 object KtorContentProvider : ContentTypeProvider, BodyParser, ResponseSerializer, OpenAPIGenModuleExtension {
 
-    private var contentNegotiation: ContentNegotiation? = null
+    //    private var contentNegotiation: ContentNegotiation? = null
     private var contentTypes: Set<ContentType>? = null
 
     private fun initContentTypes(apiGen: OpenAPIGen): Set<ContentType>? {
-        contentNegotiation = contentNegotiation ?: apiGen.pipeline.featureOrNull(ContentNegotiation) ?: return null
-        contentTypes = contentNegotiation!!.registrations.map { it.contentType }.toSet()
+        // TODO get content negotiation here
+//        val a = apiGen.pipeline.pluginOrNull(ContentNegotiation)?.builder
+
+//        contentNegotiation = contentNegotiation ?: apiGen.pipeline.pluginOrNull(ContentNegotiation) ?: return null
+        contentTypes = setOf(ContentType.Application.Json)
         return contentTypes
     }
 
@@ -75,7 +81,12 @@ object KtorContentProvider : ContentTypeProvider, BodyParser, ResponseSerializer
     }
 
     override suspend fun <T : Any> parseBody(clazz: KType, request: PipelineContext<Unit, ApplicationCall>): T {
-        return request.call.receive(clazz)
+        val info = TypeInfo(
+            type = clazz.jvmErasure,
+            reifiedType = clazz.platformType,
+            kotlinType = clazz
+        )
+        return request.call.receive(info)
     }
 
     override fun <T : Any> getSerializableContentTypes(type: KType): List<ContentType> {

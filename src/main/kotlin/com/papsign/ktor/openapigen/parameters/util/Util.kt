@@ -7,6 +7,7 @@ import com.papsign.ktor.openapigen.parameters.handlers.ModularParameterHandler
 import com.papsign.ktor.openapigen.parameters.handlers.ParameterHandler
 import com.papsign.ktor.openapigen.parameters.handlers.UnitParameterHandler
 import com.papsign.ktor.openapigen.parameters.parsers.builders.Builder
+import io.ktor.util.reflect.TypeInfo
 import kotlin.reflect.KFunction
 import kotlin.reflect.KParameter
 import kotlin.reflect.KType

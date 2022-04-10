@@ -1,7 +1,7 @@
 package com.papsign.ktor.openapigen.content.type
 
-import io.ktor.application.ApplicationCall
 import io.ktor.http.ContentType
+import io.ktor.server.application.ApplicationCall
 import io.ktor.util.pipeline.PipelineContext
 import kotlin.reflect.KType
 

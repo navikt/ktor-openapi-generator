@@ -8,8 +8,8 @@ import com.papsign.ktor.openapigen.route.apiRouting
 import com.papsign.ktor.openapigen.route.path.normal.post
 import com.papsign.ktor.openapigen.route.response.respond
 import com.papsign.ktor.openapigen.route.route
-import io.ktor.application.*
 import io.ktor.http.*
+import io.ktor.server.application.log
 import io.ktor.server.testing.*
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

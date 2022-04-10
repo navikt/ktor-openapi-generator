@@ -30,22 +30,43 @@ import com.papsign.ktor.openapigen.interop.withAPI
 import com.papsign.ktor.openapigen.model.Described
 import com.papsign.ktor.openapigen.model.server.ServerModel
 import com.papsign.ktor.openapigen.openAPIGen
-import com.papsign.ktor.openapigen.route.*
+import com.papsign.ktor.openapigen.route.apiRouting
+import com.papsign.ktor.openapigen.route.info
 import com.papsign.ktor.openapigen.route.path.normal.get
 import com.papsign.ktor.openapigen.route.path.normal.post
+import com.papsign.ktor.openapigen.route.path.normal.route
 import com.papsign.ktor.openapigen.route.response.respond
+import com.papsign.ktor.openapigen.route.responseAnnotationStatus
+import com.papsign.ktor.openapigen.route.route
+import com.papsign.ktor.openapigen.route.status
+import com.papsign.ktor.openapigen.route.tag
+import com.papsign.ktor.openapigen.route.throws
 import com.papsign.ktor.openapigen.schema.namer.DefaultSchemaNamer
 import com.papsign.ktor.openapigen.schema.namer.SchemaNamer
-import io.ktor.application.*
-import io.ktor.features.*
-import io.ktor.http.*
-import io.ktor.jackson.*
-import io.ktor.request.*
-import io.ktor.response.*
-import io.ktor.routing.*
-import io.ktor.server.engine.*
-import io.ktor.server.netty.*
-import java.time.*
+import io.ktor.http.HttpStatusCode
+import io.ktor.serialization.jackson.jackson
+import io.ktor.server.application.Application
+import io.ktor.server.application.application
+import io.ktor.server.application.call
+import io.ktor.server.application.install
+import io.ktor.server.engine.embeddedServer
+import io.ktor.server.netty.Netty
+import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.server.plugins.origin
+import io.ktor.server.plugins.statuspages.StatusPages
+import io.ktor.server.request.host
+import io.ktor.server.request.port
+import io.ktor.server.response.respond
+import io.ktor.server.response.respondRedirect
+import io.ktor.server.routing.get
+import io.ktor.server.routing.routing
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+import java.time.OffsetDateTime
+import java.time.OffsetTime
+import java.time.ZonedDateTime
 import kotlin.reflect.KType
 
 object TestServer {
@@ -56,7 +77,7 @@ object TestServer {
 
     fun Application.testServer() {
         setupBaseTestServer()
-
+        routing { }
         apiRouting {
 
             get<StringParam, StringResponse>(
@@ -324,7 +345,7 @@ object TestServer {
                         ).contains(call.request.port())
                     ) "" else ":${call.request.port()}"
                 )
-                application.openAPIGen.api.servers.add(0, host)
+                this.application.openAPIGen.api.servers.add(0, host)
                 call.respond(application.openAPIGen.api.serialize())
                 application.openAPIGen.api.servers.remove(host)
             }

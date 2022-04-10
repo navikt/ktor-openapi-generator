@@ -2,37 +2,37 @@ package com.papsign.ktor.openapigen.route
 
 import com.papsign.ktor.openapigen.OpenAPIGen
 import com.papsign.ktor.openapigen.route.path.normal.NormalOpenAPIRoute
-import io.ktor.application.Application
-import io.ktor.application.feature
-import io.ktor.routing.Routing
-import io.ktor.routing.routing
-import io.ktor.util.pipeline.ContextDsl
+import io.ktor.server.application.Application
+import io.ktor.server.application.plugin
+import io.ktor.server.routing.Routing
+import io.ktor.server.routing.routing
+import io.ktor.util.KtorDsl
 
 /**
  * Wrapper for [io.ktor.routing.routing] to create the endpoints while configuring OpenAPI
  * documentation at the same time.
  */
-@ContextDsl
+@KtorDsl
 fun Application.apiRouting(config: NormalOpenAPIRoute.() -> Unit) {
     routing {
         NormalOpenAPIRoute(
                 this,
-                application.feature(OpenAPIGen).globalModuleProvider
+                application.plugin(OpenAPIGen).globalModuleProvider
         ).apply(config)
     }
 }
 
 /**
- * Wrapper for [io.ktor.routing.routing] to create the endpoints while configuring OpenAPI
+ * Wrapper for [io.ktor.server.routing.routing] to create the endpoints while configuring OpenAPI
  * documentation at the same time.
- * 
- * @param config 
+ *
+ * @param config
  */
-@ContextDsl
+@KtorDsl
 fun Routing.apiRouting(config: NormalOpenAPIRoute.() -> Unit) {
     NormalOpenAPIRoute(
             this,
-            application.feature(OpenAPIGen).globalModuleProvider
+            application.plugin(OpenAPIGen).globalModuleProvider
     ).apply(config)
 }
 
