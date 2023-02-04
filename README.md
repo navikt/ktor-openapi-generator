@@ -7,7 +7,7 @@ Central_.
 
 ```kotlin
 dependencies {
-    implementation("dev.forst:ktor-openapi-generator:0.5.5")
+    implementation("dev.forst:ktor-openapi-generator:0.6.0")
 }
 ```
 
