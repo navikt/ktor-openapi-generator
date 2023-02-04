@@ -1,7 +1,7 @@
 package com.papsign.ktor.openapigen.parameters.parsers.builders.query.deepobject
 
 import com.papsign.ktor.openapigen.parameters.parsers.testSelector
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 class ListBuilderTest {
 

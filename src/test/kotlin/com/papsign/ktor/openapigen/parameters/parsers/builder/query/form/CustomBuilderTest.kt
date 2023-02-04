@@ -7,21 +7,21 @@ import com.papsign.ktor.openapigen.parameters.parsers.converters.primitive.Primi
 import com.papsign.ktor.openapigen.parameters.parsers.converters.primitive.PrimitiveConverterFactory
 import com.papsign.ktor.openapigen.parameters.parsers.testSelector
 import com.papsign.ktor.openapigen.parameters.parsers.testSelectorFails
-import org.junit.After
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import java.time.OffsetDateTime
 import java.util.UUID
 import kotlin.reflect.KType
 import kotlin.reflect.full.createType
 
 class InjectBeforeTest {
-    @Before
+    @BeforeEach
     fun before() {
         PrimitiveConverterFactory.injectConverterBefore(PrimitiveConverter::class, CustomUuidConverter)
     }
 
-    @After
+    @AfterEach
     fun after() {
         PrimitiveConverterFactory.removeConverter(CustomUuidConverter::class)
     }
@@ -30,7 +30,7 @@ class InjectBeforeTest {
     fun testCustomConverter() {
         val uuid = "4a5e1ba7-c6fe-49de-abf9-d94614ea3bb8"
         val key = "key"
-        val expected = UUID.fromString(uuid)
+        val expected: UUID = UUID.fromString(uuid)
         val parse = mapOf(
             key to listOf(uuid)
         )
@@ -40,13 +40,13 @@ class InjectBeforeTest {
 }
 
 class InjectAfterAndRemoveTest {
-    @Before
+    @BeforeEach
     fun before() {
         PrimitiveConverterFactory.injectConverterAfter(PrimitiveConverter::class, AnyToBooleanConverter)
         PrimitiveConverterFactory.removeConverter(PrimitiveConverter::class)
     }
 
-    @After
+    @AfterEach
     fun after() {
         PrimitiveConverterFactory.injectConverterBefore(AnyToBooleanConverter::class, PrimitiveConverter)
         PrimitiveConverterFactory.removeConverter(AnyToBooleanConverter::class)

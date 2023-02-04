@@ -5,7 +5,7 @@ import com.papsign.ktor.openapigen.exceptions.OpenAPIBadContentException
 import com.papsign.ktor.openapigen.getKType
 import com.papsign.ktor.openapigen.parameters.parsers.builders.query.form.FormBuilderFactory
 import com.papsign.ktor.openapigen.parameters.parsers.testSelector
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull

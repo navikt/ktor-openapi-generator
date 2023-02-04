@@ -26,7 +26,7 @@ import io.ktor.server.auth.basic
 import io.ktor.server.response.respond
 import io.ktor.server.testing.*
 import io.ktor.util.pipeline.*
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

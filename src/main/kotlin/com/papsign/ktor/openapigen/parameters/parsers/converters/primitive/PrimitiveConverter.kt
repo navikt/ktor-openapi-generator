@@ -6,6 +6,7 @@ import com.papsign.ktor.openapigen.parameters.parsers.converters.ConverterSelect
 import com.papsign.ktor.openapigen.parameters.util.localDateTimeFormatter
 import com.papsign.ktor.openapigen.parameters.util.offsetDateTimeFormatter
 import com.papsign.ktor.openapigen.parameters.util.zonedDateTimeFormatter
+import io.ktor.util.reflect.*
 import java.math.BigDecimal
 import java.math.BigInteger
 import java.time.*
@@ -14,6 +15,7 @@ import java.time.format.DateTimeParseException
 import java.util.*
 import kotlin.reflect.KType
 
+@Suppress("RemoveExplicitTypeArguments")
 object PrimitiveConverter : ConverterSelector {
 
     private inline fun <reified T> primitive(noinline cvt: (String) -> T): Pair<KType, Converter> {
@@ -35,14 +37,14 @@ object PrimitiveConverter : ConverterSelector {
             it.toLongOrNull() ?: 0
         },
         primitive { it.toLongOrNull() },
-        primitive {
+        primitive<BigInteger> {
             it.toBigIntegerOrNull() ?: BigInteger.ZERO
         },
-        primitive { it.toBigIntegerOrNull() },
-        primitive {
+        primitive<BigInteger?> { it.toBigIntegerOrNull() },
+        primitive<BigDecimal> {
             it.toBigDecimalOrNull() ?: BigDecimal.ZERO
         },
-        primitive { it.toBigDecimalOrNull() },
+        primitive<BigDecimal?> { it.toBigDecimalOrNull() },
         primitive { it.toFloatOrNull() ?: 0f },
         primitive { it.toFloatOrNull() },
         primitive {
@@ -53,90 +55,86 @@ object PrimitiveConverter : ConverterSelector {
         primitive<Boolean?> { it.toBoolean() },
         // removed temporarily because behavior may not be standard or expected
 
-        primitive {
+        primitive<LocalDate> {
             LocalDate.parse(it, DateTimeFormatter.ISO_DATE)
         },
-        primitive {
+        primitive<LocalDate?> {
             try {
                 LocalDate.parse(it, DateTimeFormatter.ISO_DATE)
-            } catch(e: DateTimeParseException) {
+            } catch (e: DateTimeParseException) {
                 null
             }
         },
 
-        primitive {
+        primitive<LocalTime> {
             LocalTime.parse(it, DateTimeFormatter.ISO_LOCAL_TIME)
         },
-        primitive {
+        primitive<LocalTime?> {
             try {
                 LocalTime.parse(it, DateTimeFormatter.ISO_LOCAL_TIME)
-            } catch(e: DateTimeParseException) {
+            } catch (e: DateTimeParseException) {
                 null
             }
         },
 
-        primitive {
+        primitive<OffsetTime> {
             OffsetTime.parse(it, DateTimeFormatter.ISO_OFFSET_TIME)
         },
-        primitive {
+        primitive<OffsetTime?> {
             try {
                 OffsetTime.parse(it, DateTimeFormatter.ISO_OFFSET_TIME)
-            } catch(e: DateTimeParseException) {
+            } catch (e: DateTimeParseException) {
                 null
             }
         },
 
-        primitive {
+        primitive<LocalDateTime> {
             LocalDateTime.parse(it, localDateTimeFormatter)
         },
-        primitive {
+        primitive<LocalDateTime?> {
             try {
                 LocalDateTime.parse(it, localDateTimeFormatter)
-            } catch(e: DateTimeParseException) {
+            } catch (e: DateTimeParseException) {
                 null
             }
         },
 
-        primitive {
+        primitive<OffsetDateTime> {
             OffsetDateTime.parse(it, offsetDateTimeFormatter)
         },
-        primitive {
+        primitive<OffsetDateTime?> {
             try {
                 OffsetDateTime.parse(it, offsetDateTimeFormatter)
-            } catch(e: DateTimeParseException) {
+            } catch (e: DateTimeParseException) {
                 null
             }
         },
 
-        primitive {
+        primitive<ZonedDateTime> {
             ZonedDateTime.parse(it, zonedDateTimeFormatter)
         },
-        primitive {
+        primitive<ZonedDateTime?> {
             try {
                 ZonedDateTime.parse(it, zonedDateTimeFormatter)
-            } catch(e: DateTimeParseException) {
+            } catch (e: DateTimeParseException) {
                 null
             }
         },
 
-        primitive { it.toLongOrNull()?.let(Instant::ofEpochMilli) ?: Instant.from(offsetDateTimeFormatter.parse(it)) },
-        primitive {
+        primitive<Instant> {
+            it.toLongOrNull()?.let(Instant::ofEpochMilli) ?: Instant.from(offsetDateTimeFormatter.parse(it))
+        },
+        primitive<Instant?> {
             try {
                 it.toLongOrNull()?.let(Instant::ofEpochMilli) ?: Instant.from(offsetDateTimeFormatter.parse(it))
-            } catch(e: DateTimeParseException) {
+            } catch (e: DateTimeParseException) {
                 null
             }
         },
 
-//        primitive { it?.toLongOrNull()?.let(::Date) ?: it?.let(dateFormat::parse) ?: Date() },
-//        primitive { it?.toLongOrNull()?.let(::Date) ?: it?.let(dateFormat::parse) },
 
-        primitive {
-            try {
-                UUID.fromString(it)
-            } catch (e: IllegalArgumentException) {
-                null
-            } ?: UUID(0, 0)
+        primitive<UUID> {
+            UUID.fromString(it)
         },
         primitive {
             try {

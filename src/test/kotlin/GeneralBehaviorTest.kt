@@ -1,5 +1,5 @@
 import com.papsign.ktor.openapigen.getKType
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import java.util.*
 import kotlin.reflect.KType
 import kotlin.reflect.full.isSubtypeOf

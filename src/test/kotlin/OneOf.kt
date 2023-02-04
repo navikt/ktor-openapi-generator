@@ -16,7 +16,7 @@ import com.papsign.ktor.openapigen.route.route
 import io.ktor.http.*
 import io.ktor.server.testing.*
 import org.junit.Assert
-import org.junit.Test
+import org.junit.jupiter.api.Test
 
 fun NormalOpenAPIRoute.SealedRoute() {
     route("sealed") {

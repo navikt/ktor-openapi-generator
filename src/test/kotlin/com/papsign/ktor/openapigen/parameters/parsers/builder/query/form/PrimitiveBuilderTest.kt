@@ -3,7 +3,7 @@ package com.papsign.ktor.openapigen.parameters.parsers.builder.query.form
 import com.papsign.ktor.openapigen.parameters.parsers.builders.query.form.FormBuilderFactory
 import com.papsign.ktor.openapigen.parameters.parsers.testSelector
 import com.papsign.ktor.openapigen.parameters.parsers.testSelectorFails
-import org.junit.Test
+import org.junit.jupiter.api.Test
 import java.time.*
 
 class PrimitiveBuilderTest {
@@ -21,7 +21,7 @@ class PrimitiveBuilderTest {
     @Test
     fun testLocalDate() {
         val key = "key"
-        val expected = LocalDate.of(2021, Month.FEBRUARY, 27)
+        val expected: LocalDate = LocalDate.of(2021, Month.FEBRUARY, 27)
         val parse = mapOf(
             key to listOf("2021-02-27")
         )
@@ -33,7 +33,7 @@ class PrimitiveBuilderTest {
     fun testLocalTime() {
         val key = "key"
 
-        val cases = listOf(
+        val cases = listOf<Pair<String, LocalTime>>(
             "10:30:00" to LocalTime.of(10, 30, 0),
             "10:30" to LocalTime.of(10, 30, 0),
             "10:30:00.1" to LocalTime.of(10, 30, 0, 100_000_000),
@@ -62,7 +62,7 @@ class PrimitiveBuilderTest {
     fun testOffsetTime() {
         val key = "key"
 
-        val cases = listOf(
+        val cases = listOf<Pair<String, OffsetTime>>(
             "10:30:00+03:00" to OffsetTime.of(LocalTime.of(10, 30, 0), ZoneOffset.ofHours(3)),
             "10:30+03:00" to OffsetTime.of(LocalTime.of(10, 30, 0), ZoneOffset.ofHours(3)),
             "10:30Z" to OffsetTime.of(LocalTime.of(10, 30, 0), ZoneOffset.UTC),
@@ -96,7 +96,7 @@ class PrimitiveBuilderTest {
 
         val baseDate = LocalDate.of(2021, Month.FEBRUARY, 27)
 
-        val cases = listOf(
+        val cases = listOf<Pair<String, LocalDateTime>>(
             "2021-02-27T10:30:00" to LocalDateTime.of(baseDate, LocalTime.of(10, 30, 0)),
             "2021-02-27 10:30:00" to LocalDateTime.of(baseDate, LocalTime.of(10, 30, 0)),
             "2021-02-27 10:30" to LocalDateTime.of(baseDate, LocalTime.of(10, 30, 0)),
@@ -133,7 +133,7 @@ class PrimitiveBuilderTest {
 
         val baseDateTime = LocalDateTime.of(LocalDate.of(2021, Month.FEBRUARY, 27), LocalTime.of(10, 30, 0))
 
-        val cases = listOf(
+        val cases = listOf<Pair<String, OffsetDateTime>>(
             "2021-02-27T10:30:00+03:00" to OffsetDateTime.of(baseDateTime, ZoneOffset.ofHours(3)),
             "2021-02-27 10:30:00+03:00" to OffsetDateTime.of(baseDateTime, ZoneOffset.ofHours(3)),
             "2021-02-27 10:30:00+03" to OffsetDateTime.of(baseDateTime, ZoneOffset.ofHours(3)),
@@ -181,7 +181,7 @@ class PrimitiveBuilderTest {
 
         val baseDateTime = LocalDateTime.of(LocalDate.of(2021, Month.FEBRUARY, 27), LocalTime.of(10, 30, 0))
 
-        val cases = listOf(
+        val cases = listOf<Pair<String, ZonedDateTime>>(
             "2021-02-27T10:30:00+03:00" to ZonedDateTime.of(baseDateTime, ZoneOffset.ofHours(3)),
             "2021-02-27T10:30:00+03:00[Europe/Moscow]" to ZonedDateTime.of(baseDateTime, ZoneId.of("Europe/Moscow")),
             "2021-02-27T10:30:00+03[Europe/Moscow]" to ZonedDateTime.of(baseDateTime, ZoneId.of("Europe/Moscow")),
@@ -235,7 +235,7 @@ class PrimitiveBuilderTest {
         val instant = OffsetDateTime.of(LocalDate.of(2021, Month.FEBRUARY, 27), LocalTime.of(10, 30, 0), ZoneOffset.UTC).toInstant()
         val epochMillis = instant.toEpochMilli()
 
-        val cases = listOf(
+        val cases = listOf<Pair<String, Instant>>(
             "2021-02-27T10:30:00Z" to instant,
             "2021-02-27 10:30:00Z" to instant,
             "2021-02-27 10:30:00+00:00" to instant,
