@@ -2,12 +2,11 @@
 
 The Ktor OpenAPI Generator is a library to automatically generate the descriptor as you route your ktor application.
 
-_This version by [LukasForst](https://github.com/LukasForst) was migrated to Ktor `2.0.0` and is hosted on Maven
-Central_.
+_This version by [ekun](https://github.com/ekun) was migrated to Ktor `2.0.0`
 
 ```kotlin
 dependencies {
-    implementation("dev.forst:ktor-openapi-generator:0.6.1")
+    implementation("org.glittum:ktor-openapi-generator:0.6.1")
 }
 ```
 
