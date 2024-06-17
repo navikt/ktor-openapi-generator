@@ -13,7 +13,7 @@ class EnumConverter(val type: KType) : Converter {
 
     private val isStrictParsing = (type.classifier as? KClass<*>)?.findAnnotation<StrictEnumParsing>() != null
 
-    private val enumMap = type.jvmErasure.java.enumConstants.associateBy { it.toString() }
+    private val enumMap = type.jvmErasure.java.enumConstants.associateBy { value -> (value as Enum<*>).name }
 
     override fun convert(value: String): Any? {
         if (!isStrictParsing)

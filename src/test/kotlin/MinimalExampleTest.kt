@@ -12,6 +12,7 @@ import io.ktor.server.application.Application
 import io.ktor.server.testing.testApplication
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class MinimalExampleTest {
     @Test
@@ -21,7 +22,9 @@ class MinimalExampleTest {
         val client = createClient { install(ContentNegotiation) { jackson() } }
 
         val openapi = client.get("/openapi.json")
+        val body = openapi.body<String>()
         assertEquals(HttpStatusCode.OK, openapi.status)
+        assertTrue(body.isNotEmpty())
 
         val response = client.post("/example/world") {
             header(HttpHeaders.ContentType, ContentType.Application.Json.toString())

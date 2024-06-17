@@ -1,5 +1,9 @@
 package com.papsign.ktor.openapigen.schema.builder.provider
 
+import com.fasterxml.jackson.annotation.JsonFormat
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.papsign.ktor.openapigen.KTypeProperty
 import com.papsign.ktor.openapigen.OpenAPIGen
 import com.papsign.ktor.openapigen.OpenAPIGenModuleExtension
 import com.papsign.ktor.openapigen.classLogger
@@ -13,21 +17,18 @@ import com.papsign.ktor.openapigen.schema.builder.FinalSchemaBuilder
 import com.papsign.ktor.openapigen.schema.builder.SchemaBuilder
 import com.papsign.ktor.openapigen.schema.namer.DefaultSchemaNamer
 import com.papsign.ktor.openapigen.schema.namer.SchemaNamer
-import kotlin.collections.HashMap
-import kotlin.collections.List
-import kotlin.collections.associate
-import kotlin.collections.filter
-import kotlin.collections.lastOrNull
-import kotlin.collections.listOf
-import kotlin.collections.map
+import io.ktor.util.reflect.platformType
 import kotlin.collections.set
 import kotlin.reflect.KType
 import kotlin.reflect.KVisibility
+import kotlin.reflect.full.findAnnotation
+import kotlin.reflect.full.hasAnnotation
+import kotlin.reflect.full.isSubtypeOf
 import kotlin.reflect.full.starProjectedType
 import kotlin.reflect.full.withNullability
 import kotlin.reflect.jvm.jvmErasure
 
-object DefaultObjectSchemaProvider : SchemaBuilderProviderModule, OpenAPIGenModuleExtension, DefaultOpenAPIModule {
+object DefaultEnumObjectSchemaProvider : SchemaBuilderProviderModule, OpenAPIGenModuleExtension, DefaultOpenAPIModule {
     private val log = classLogger()
 
     override fun provide(apiGen: OpenAPIGen, provider: ModuleProvider<*>): List<SchemaBuilder> {
@@ -47,11 +48,13 @@ object DefaultObjectSchemaProvider : SchemaBuilderProviderModule, OpenAPIGenModu
 
     private class Builder(private val apiGen: OpenAPIGen, private val namer: SchemaNamer) : SchemaBuilder {
 
-        override val superType: KType = getKType<Any?>()
+        override val superType: KType = getKType<ComplexEnum?>()
 
         private val refs = HashMap<KType, SchemaModel.SchemaModelRef<*>>()
 
-        override fun build(type: KType, builder: FinalSchemaBuilder, finalize: (SchemaModel<*>)->SchemaModel<*>): SchemaModel<*> {
+        override fun build(type: KType,
+                           builder: FinalSchemaBuilder,
+                           finalize: (SchemaModel<*>) -> SchemaModel<*>): SchemaModel<*> {
             checkType(type)
             val nonNullType = type.withNullability(false)
             return refs[nonNullType] ?: {
@@ -62,14 +65,15 @@ object DefaultObjectSchemaProvider : SchemaBuilderProviderModule, OpenAPIGenModu
                 val new = if (erasure.isSealed) {
                     SchemaModel.OneSchemaModelOf(erasure.sealedSubclasses.map { builder.build(it.starProjectedType) })
                 } else {
-                    val props = type.memberProperties.filter { it.source.visibility == KVisibility.PUBLIC }
-                    SchemaModel.SchemaModelObj<Any?>(
+                    val props = type.memberProperties.filter { filterProperties(it) }
+                        .filter { it.source.visibility == KVisibility.PUBLIC }
+                    SchemaModel.SchemaModelObj(
                         props.associate {
-                            Pair(it.name, builder.build(it.type, it.source.annotations))
+                            Pair(extractName(it), builder.build(it.type, it.source.annotations))
                         },
                         props.filter {
                             !it.type.isMarkedNullable
-                        }.map { it.name }
+                        }.map { it.name },
                     )
                 }
                 val final = finalize(new)
@@ -78,6 +82,33 @@ object DefaultObjectSchemaProvider : SchemaBuilderProviderModule, OpenAPIGenModu
                 apiGen.api.components.schemas[name] = final
                 ref
             }()
+        }
+
+        private fun extractName(it: KTypeProperty): String {
+            val annotation = it.type.findAnnotation<JsonProperty>()
+            val value = annotation?.value
+            val useAnnotationValue = value != annotation?.defaultValue
+            if (useAnnotationValue) {
+                return value!!
+            }
+            return it.name
+        }
+
+        override fun checkType(type: KType) {
+            if (type.isSubtypeOf(getKType<Enum<*>?>())) {
+                val jsonFormat = (type.platformType as Class<*>).getAnnotation(JsonFormat::class.java)
+                if (jsonFormat != null && jsonFormat.shape == JsonFormat.Shape.OBJECT) {
+                    return
+                }
+            }
+            error("${this::class} cannot build type $type, only subtypes of $superType are supported")
+        }
+
+        private fun filterProperties(kTypeProperty: KTypeProperty): Boolean {
+            if (kTypeProperty.type.hasAnnotation<JsonIgnore>()) {
+                return false
+            }
+            return kTypeProperty.name !in setOf("name", "ordinal")
         }
     }
 }

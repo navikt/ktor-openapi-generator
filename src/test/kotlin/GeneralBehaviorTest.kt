@@ -1,6 +1,6 @@
 import com.papsign.ktor.openapigen.getKType
 import org.junit.jupiter.api.Test
-import java.util.*
+import java.util.TreeSet
 import kotlin.reflect.KType
 import kotlin.reflect.full.isSubtypeOf
 
@@ -19,14 +19,14 @@ class GeneralBehaviorTest {
 
     @Test
     fun testSubtypeHierarchySet() {
-        val set = TreeSet<KType>(kotlin.Comparator { a, b ->
+        val set = TreeSet<KType> { a, b ->
             when {
                 a.isSubtypeOf(b) -> -1
                 b.isSubtypeOf(a) -> 1
                 a == b -> 0
                 else -> 1
             }
-        })
+        }
         set.add(getKType<B>())
         println(set)
         set.add(getKType<BBA>())
@@ -59,7 +59,8 @@ class GeneralBehaviorTest {
     }
     @Test
     fun testEnumSubtypes() {
-        assert(getKType<TestEnum>().isSubtypeOf(getKType<Enum<*>>()))
+        val kType = getKType<TestEnum>()
+        assert(kType.isSubtypeOf(getKType<Enum<*>>()))
     }
 
 
