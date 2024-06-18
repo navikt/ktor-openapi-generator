@@ -4,7 +4,8 @@ import com.papsign.ktor.openapigen.OpenAPIGen
 import com.papsign.ktor.openapigen.route.path.normal.NormalOpenAPIRoute
 import io.ktor.server.application.Application
 import io.ktor.server.application.plugin
-import io.ktor.server.routing.Routing
+import io.ktor.server.routing.Route
+import io.ktor.server.routing.application
 import io.ktor.server.routing.routing
 import io.ktor.util.KtorDsl
 
@@ -16,8 +17,8 @@ import io.ktor.util.KtorDsl
 fun Application.apiRouting(config: NormalOpenAPIRoute.() -> Unit) {
     routing {
         NormalOpenAPIRoute(
-                this,
-                application.plugin(OpenAPIGen).globalModuleProvider
+            this,
+            application.plugin(OpenAPIGen).globalModuleProvider
         ).apply(config)
     }
 }
@@ -29,10 +30,10 @@ fun Application.apiRouting(config: NormalOpenAPIRoute.() -> Unit) {
  * @param config
  */
 @KtorDsl
-fun Routing.apiRouting(config: NormalOpenAPIRoute.() -> Unit) {
+fun Route.apiRouting(config: NormalOpenAPIRoute.() -> Unit) {
     NormalOpenAPIRoute(
-            this,
-            application.plugin(OpenAPIGen).globalModuleProvider
+        this,
+        application.plugin(OpenAPIGen).globalModuleProvider
     ).apply(config)
 }
 
