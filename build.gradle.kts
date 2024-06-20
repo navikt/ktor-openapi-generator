@@ -1,4 +1,5 @@
 import org.gradle.jvm.tasks.Jar
+import java.io.ByteArrayOutputStream
 import java.net.URL
 
 
@@ -14,10 +15,27 @@ plugins {
 
 group = "org.glittum"
 base.archivesName.set("ktor-open-api")
-version = (versioning.info?.tag ?: versioning.info?.lastTag ?: versioning.info?.build) ?: "SNAPSHOT"
+version = "1.0-" + getCheckedOutGitCommitHash()
 
 repositories {
     mavenCentral()
+}
+
+
+fun runCommand(command: String): String {
+    val byteOut = ByteArrayOutputStream()
+    project.exec {
+        commandLine = command.split("\\s".toRegex())
+        standardOutput = byteOut
+    }
+    return String(byteOut.toByteArray()).trim()
+}
+
+fun getCheckedOutGitCommitHash(): String {
+    if (System.getenv("GITHUB_ACTIONS") == "true") {
+        return System.getenv("GITHUB_SHA")
+    }
+    return runCommand("git rev-parse --verify HEAD")
 }
 
 val ktorVersion = "2.3.11"
@@ -139,7 +157,4 @@ publishing {
             }
         }
     }
-}
-publishing {
-
 }
