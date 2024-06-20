@@ -15,9 +15,13 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 22
+      - name: Setup Gradle for a non-wrapper project
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 8.7
 
       - name: Build lib
-        run: ./gradlew assemble
+        run: gradle assemble
 
       - name: Run tests
-        run: ./gradlew test --info
+        run: gradle test --info
