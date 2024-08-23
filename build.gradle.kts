@@ -8,8 +8,7 @@ plugins {
 
     `maven-publish`
     signing
-    // we can not switch to 3.x.x because we want to keep it compatible with JVM 8
-    id("net.nemerosa.versioning") version "2.15.1"
+    id("net.nemerosa.versioning") version "3.1.0"
     id("org.jetbrains.dokka") version "1.7.20"
 }
 
