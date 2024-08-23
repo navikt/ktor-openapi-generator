@@ -12,7 +12,7 @@ plugins {
     id("org.jetbrains.dokka") version "1.7.20"
 }
 
-group = "org.glittum"
+group = "no.nav"
 base.archivesName.set("ktor-open-api")
 version = "1.0-" + getCheckedOutGitCommitHash()
 

@@ -6,7 +6,7 @@ _This version by [ekun](https://github.com/ekun) was migrated to Ktor `2.0.0`
 
 ```kotlin
 dependencies {
-    implementation("org.glittum:ktor-openapi-generator:0.6.1")
+    implementation("no.nav:ktor-openapi-generator:0.6.1")
 }
 ```
 
