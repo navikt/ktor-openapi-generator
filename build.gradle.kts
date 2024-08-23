@@ -98,7 +98,7 @@ tasks {
 
                 sourceLink {
                     localDirectory.set(file("src/main/kotlin"))
-                    remoteUrl.set(URL("https://github.com/ekun/ktor-openapi-generator/tree/master/src/main/kotlin"))
+                    remoteUrl.set(URL("https://github.com/navikt/ktor-openapi-generator/tree/master/src/main/kotlin"))
                     remoteLineSuffix.set("#L")
                 }
             }
@@ -124,9 +124,9 @@ publishing {
     repositories {
         maven {
             name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/ekun/ktor-openapi-generator")
+            url = uri("https://maven.pkg.github.com/navikt/ktor-openapi-generator")
             credentials {
-                username = System.getenv("GITHUB_ACTOR")
+                username = "x-access-token"
                 password = System.getenv("GITHUB_TOKEN")
             }
         }
@@ -141,18 +141,18 @@ publishing {
             pom {
                 name.set("Ktor OpenAPI/Swagger 3 Generator")
                 description.set("The Ktor OpenAPI Generator is a library to automatically generate the descriptor as you route your ktor application.")
-                url.set("https://github.com/ekun/ktor-openapi-generator")
+                url.set("https://github.com/navikt/ktor-openapi-generator")
                 packaging = "jar"
                 licenses {
                     license {
                         name.set("Apache-2.0 License")
-                        url.set("https://github.com/ekun/ktor-openapi-generator/blob/master/LICENSE")
+                        url.set("https://github.com/navikt/ktor-openapi-generator/blob/master/LICENSE")
                     }
                 }
 
                 scm {
-                    connection.set("scm:git:git://github.com/ekun/ktor-openapi-generator.git")
-                    url.set("https://github.com/ekun/ktor-openapi-generator")
+                    connection.set("scm:git:git://github.com/navikt/ktor-openapi-generator.git")
+                    url.set("https://github.com/navikt/ktor-openapi-generator")
                 }
             }
         }
