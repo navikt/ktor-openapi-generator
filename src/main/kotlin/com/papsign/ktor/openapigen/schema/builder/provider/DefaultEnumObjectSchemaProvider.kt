@@ -108,7 +108,7 @@ object DefaultEnumObjectSchemaProvider : SchemaBuilderProviderModule, OpenAPIGen
             if (kTypeProperty.type.hasAnnotation<JsonIgnore>()) {
                 return false
             }
-            return kTypeProperty.name !in setOf("name", "ordinal")
+            return kTypeProperty.name !in setOf("ordinal")
         }
     }
 }
