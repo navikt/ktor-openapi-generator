@@ -7,8 +7,10 @@ jobs:
   test:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
-      packages: write
+      contents: write
+      actions: read
+      checks: write
+      id-token: write
     name: Build & Test
 
     steps:
