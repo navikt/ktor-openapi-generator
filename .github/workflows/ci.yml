@@ -32,13 +32,19 @@ jobs:
       - name: Run tests
         run: gradle test --info
 
+      - uses: paulhatch/semantic-version@v5.4.0
+        id: tag
+        with:
+          bump_each_commit: true
+          tag_prefix: ""
+
       - name: Publish
-        run: gradle publish
+        run: gradle -Pversion=${{ steps.tag.outputs.version }} publish
         env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Generate API documentation
-        run: gradle dokkaHtml
+        run: gradle -Pversion=${{ steps.tag.outputs.version }} dokkaHtml
 
       - name: Deploy API documentation to Github Pages
         uses: JamesIves/github-pages-deploy-action@v4.4.1
