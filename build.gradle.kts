@@ -14,7 +14,7 @@ plugins {
 
 group = "no.nav"
 base.archivesName.set("ktor-open-api")
-version = "1.0-" + getCheckedOutGitCommitHash()
+version = project.findProperty("version")?.toString() ?: "1.0.0-" + getCheckedOutGitCommitHash()
 
 repositories {
     mavenCentral()
