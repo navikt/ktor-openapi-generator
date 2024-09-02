@@ -33,7 +33,11 @@ jobs:
             pull-requests: write
             contents: write
         steps:
+            -   uses: actions/checkout@v4
             -   run: gh pr merge --auto --rebase "$PR_URL"
                 env:
                     PR_URL: ${{ github.event.pull_request.html_url }}
+                    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            -   run: gh workflow run ci.yml --ref master
+                env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
