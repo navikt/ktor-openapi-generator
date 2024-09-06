@@ -100,7 +100,7 @@ tasks {
     }
 
     dokkaHtml {
-        outputDirectory.set(File("${layout.buildDirectory}/docs"))
+        outputDirectory.set(File("$buildDir/docs"))
 
         dokkaSourceSets {
             configureEach {
