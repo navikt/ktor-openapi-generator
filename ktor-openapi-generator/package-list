@@ -1263,6 +1263,8 @@ $dokka.location:com.papsign.ktor.openapigen/SerializationSettings/SerializationS
 $dokka.location:com.papsign.ktor.openapigen/SerializationSettings/skipEmptyList/#/PointingToDeclaration/ktor-openapi-generator/com.papsign.ktor.openapigen/-serialization-settings/skip-empty-list.html
 $dokka.location:com.papsign.ktor.openapigen/SerializationSettings/skipEmptyMap/#/PointingToDeclaration/ktor-openapi-generator/com.papsign.ktor.openapigen/-serialization-settings/skip-empty-map.html
 $dokka.location:com.papsign.ktor.openapigen/SerializationSettings/skipEmptyValue/#/PointingToDeclaration/ktor-openapi-generator/com.papsign.ktor.openapigen/-serialization-settings/skip-empty-value.html
+$dokka.location:com.papsign.ktor.openapigen/SwaggerUIVersion///PointingToDeclaration/ktor-openapi-generator/com.papsign.ktor.openapigen/-swagger-u-i-version/index.html
+$dokka.location:com.papsign.ktor.openapigen/SwaggerUIVersion/version/#/PointingToDeclaration/ktor-openapi-generator/com.papsign.ktor.openapigen/-swagger-u-i-version/version.html
 $dokka.location:com.papsign.ktor.openapigen/SwaggerUi///PointingToDeclaration/ktor-openapi-generator/com.papsign.ktor.openapigen/-swagger-ui/index.html
 $dokka.location:com.papsign.ktor.openapigen/SwaggerUi/SwaggerUi/#kotlin.String#kotlin.String#kotlin.String?/PointingToDeclaration/ktor-openapi-generator/com.papsign.ktor.openapigen/-swagger-ui/-swagger-ui.html
 $dokka.location:com.papsign.ktor.openapigen/SwaggerUi/serve/#kotlin.String?#io.ktor.server.application.ApplicationCall/PointingToDeclaration/ktor-openapi-generator/com.papsign.ktor.openapigen/-swagger-ui/serve.html
