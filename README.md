@@ -49,6 +49,12 @@ data class SomeRequest(val foo: String)
 data class SomeResponse(val bar: String)
 ```
 
+To serve the Swagger UI, put this in `version.properties` (in `resources`):
+
+```
+swagger-ui.version=5.17.14
+```
+
 ## About
 
 Ktor OpenAPI Generator is:

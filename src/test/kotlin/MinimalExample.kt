@@ -18,7 +18,7 @@ import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
 fun Application.minimalExample() {
     // install OpenAPI plugin
     install(OpenAPIGen) {
-        // this servers OpenAPI definition on /openapi.json
+        // this serve OpenAPI definition on /openapi.json
         serveOpenApiJson = true
         // this servers Swagger UI on /swagger-ui/index.html
         serveSwaggerUi = true
