@@ -53,7 +53,7 @@ dependencies {
 
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.17.2") // needed for multipart parsing
     // when updating version here, don't forge to update version in OpenAPIGen.kt line 68
-    implementation("org.webjars:swagger-ui:$swaggerUiVersion")
+    api("org.webjars:swagger-ui:$swaggerUiVersion")
 
     implementation("org.reflections:reflections:0.10.2") // only used while initializing
 
@@ -83,16 +83,6 @@ kotlin {
     }
 }
 tasks {
-    val projectProps by registering(WriteProperties::class) {
-        destinationFile = layout.buildDirectory.file("version.properties")
-        // Define property.
-        property("swagger-ui.version", swaggerUiVersion)
-    }
-    processResources {
-        // Depend on output of the task to create properties,
-        // so the properties file will be part of the Java resources.
-        from(projectProps)
-    }
     withType<Test> {
         reports.html.required.set(false)
         useJUnitPlatform()
