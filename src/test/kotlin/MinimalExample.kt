@@ -1,5 +1,6 @@
 import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.papsign.ktor.openapigen.BehovType
 import com.papsign.ktor.openapigen.OpenAPIGen
 import com.papsign.ktor.openapigen.annotations.parameters.PathParam
 import com.papsign.ktor.openapigen.route.apiRouting
@@ -42,9 +43,17 @@ fun Application.minimalExample() {
                 respond(SomeSimpleEnum.C)
             }
         }
-        route("/not-an-example/"){
+        route("/not-an-example/") {
             get<Unit, SomeComplexEnum> {
                 respond(SomeComplexEnum.C)
+            }
+        }
+        route("/not-an-example-anymore/") {
+            get<Unit, BehovType> {
+                respond(BehovType.MANUELT_PÅKREVD)
+            }
+            post<Unit, BehovType, BehovType> { _, dto ->
+                respond(dto)
             }
         }
     }
@@ -57,6 +66,7 @@ data class SomeResponse(val bar: String)
 enum class SomeSimpleEnum {
     A, B, C
 }
+
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 enum class SomeComplexEnum(
     @JsonProperty("proppen") val variable: String,

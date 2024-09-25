@@ -55,6 +55,7 @@ class ValidationHandler private constructor(
                             transform(t)
                         }
                     }
+
                     handler.isUseful() -> {
                         transformFun = { t: Any? ->
                             if (t != null) {
@@ -67,14 +68,17 @@ class ValidationHandler private constructor(
                             t
                         }
                     }
+
                     shouldTransform -> {
                         transformFun = transform
                     }
+
                     else -> {
                         transformFun = null
                     }
                 }
             }
+
             type.isSubtypeOf(iterableType) -> {
                 val contentType = type.arguments[0].type!!
                 val handler =
@@ -95,6 +99,7 @@ class ValidationHandler private constructor(
                                     )
                                 }
                             }
+
                             type.isSubtypeOf(listType) -> {
                                 transformFun = { t: Any? ->
                                     transform(if (t != null) {
@@ -104,8 +109,10 @@ class ValidationHandler private constructor(
                                     })
                                 }
                             }
+
                             else -> error("Iterable interface $type is not supported, please use List or Set")
                         }
+
                         handler.isUseful() -> when {
                             type.isSubtypeOf(setType) -> {
                                 transformFun = { t: Any? ->
@@ -117,6 +124,7 @@ class ValidationHandler private constructor(
 
                                 }
                             }
+
                             type.isSubtypeOf(listType) -> {
                                 transformFun = { t: Any? ->
                                     if (t != null) {
@@ -126,11 +134,14 @@ class ValidationHandler private constructor(
                                     }
                                 }
                             }
+
                             else -> error("Iterable interface $type is not supported, please use List or Set")
                         }
+
                         shouldTransform -> {
                             transformFun = transform
                         }
+
                         else -> {
                             transformFun = null
                         }
@@ -149,6 +160,7 @@ class ValidationHandler private constructor(
                                 }.let(transform)
                             }
                         }
+
                         handler.isUseful() -> {
                             transformFun = { t: Any? ->
                                 if (t != null) {
@@ -158,15 +170,18 @@ class ValidationHandler private constructor(
                                 }
                             }
                         }
+
                         shouldTransform -> {
                             transformFun = transform
                         }
+
                         else -> {
                             transformFun = null
                         }
                     }
                 }
             }
+
             type.jvmErasure.isSealed -> {
                 val possibleClasses = type.jvmErasure.sealedSubclasses.map { it }
                 val handlers = possibleClasses.associateWith {
@@ -181,89 +196,109 @@ class ValidationHandler private constructor(
                         transformFun = { t: Any? ->
                             transform(
                                 if (t != null) {
-                                    (handlers[t::class] ?: error("No handler for sealed class ${t::class.starProjectedType}, supposed child of $type")).handle(t)
+                                    (handlers[t::class] ?: error("No handler for sealed class ${t::class.starProjectedType}, supposed child of $type")).handle(
+                                        t
+                                    )
                                 } else {
                                     t
                                 }
                             )
                         }
                     }
+
                     useful -> {
                         transformFun = { t: Any? ->
                             if (t != null) {
-                                (handlers[t::class] ?: error("No handler for sealed class ${t::class.starProjectedType}, supposed child of $type")).handle(t)
+                                (handlers[t::class] ?: error("No handler for sealed class ${t::class.starProjectedType}, supposed child of $type")).handle(
+                                    t
+                                )
                             } else {
                                 t
                             }
                         }
                     }
+
                     shouldTransform -> {
                         transformFun = transform
                     }
+
                     else -> {
                         transformFun = null
                     }
                 }
             }
+
             else -> {
-                val handled = type.memberProperties.mapNotNull { prop ->
-                    val validator = build(prop)
-                    if (validator.isUseful()) {
-                        prop.source.javaField.also {
-                            if (it == null) {
-                                log.warn("Field ${prop.source} could not be processed because delegated properties are not supported")
-                            }
-                        }?.let {
-                            validator to it
-                        }
-                    } else {
-                        null
-                    }
-                }
-                when {
-                    handled.isNotEmpty() && shouldTransform -> {
-                        transformFun = { t: Any? ->
-                            if (t != null) {
-                                handled.forEach { (handler, field) ->
-                                    field.set(t, handler.handle(field.get(t)))
+                if (isSubtypeOfAFunction(type)) {
+                    transformFun = null
+                } else {
+                    val handled = type.memberProperties.mapNotNull { prop ->
+                        val validator = build(prop)
+                        if (validator.isUseful()) {
+                            prop.source.javaField.also {
+                                if (it == null) {
+                                    log.warn("Field ${prop.source} could not be processed because delegated properties are not supported")
                                 }
+                            }?.let {
+                                validator to it
                             }
-                            transform(t)
+                        } else {
+                            null
                         }
                     }
-                    handled.isNotEmpty() -> {
-                        transformFun = { t: Any? ->
-                            if (t != null) {
-                                val copy = t.javaClass.kotlin.memberFunctions.find { it.name == "copy" }
-                                val copyParams = copy?.instanceParameter?.let { mutableMapOf<KParameter, Any?>(it to t) }
-                                handled.forEach { (handler, field) ->
-                                    val getter = field.kotlinProperty?.javaGetter
-                                    if (copy != null && copyParams != null && getter != null) {
-                                        val param = copy.parameters.first { it.name == field.name }
-                                        copyParams[param] = handler.handle(getter(t))
-                                    } else {
-                                        // TODO convert this to canAccess and only change status if false
-                                        val accessible = field.isAccessible
-                                        field.isAccessible = true
+                    when {
+                        handled.isNotEmpty() && shouldTransform -> {
+                            transformFun = { t: Any? ->
+                                if (t != null) {
+                                    handled.forEach { (handler, field) ->
                                         field.set(t, handler.handle(field.get(t)))
-                                        field.isAccessible = accessible
                                     }
                                 }
-                                if (copy != null && copyParams != null) {
-                                    copy.callBy(copyParams)
-                                } else t
-                            } else t
+                                transform(t)
+                            }
                         }
-                    }
-                    shouldTransform -> {
-                        transformFun = transform
-                    }
-                    else -> {
-                        transformFun = null
+
+                        handled.isNotEmpty() -> {
+                            transformFun = { t: Any? ->
+                                if (t != null) {
+                                    val copy = t.javaClass.kotlin.memberFunctions.find { it.name == "copy" }
+                                    val copyParams =
+                                        copy?.instanceParameter?.let { mutableMapOf<KParameter, Any?>(it to t) }
+                                    handled.forEach { (handler, field) ->
+                                        val getter = field.kotlinProperty?.javaGetter
+                                        if (copy != null && copyParams != null && getter != null) {
+                                            val param = copy.parameters.first { it.name == field.name }
+                                            copyParams[param] = handler.handle(getter(t))
+                                        } else {
+                                            // TODO convert this to canAccess and only change status if false
+                                            val accessible = field.isAccessible
+                                            field.isAccessible = true
+                                            field.set(t, handler.handle(field.get(t)))
+                                            field.isAccessible = accessible
+                                        }
+                                    }
+                                    if (copy != null && copyParams != null) {
+                                        copy.callBy(copyParams)
+                                    } else t
+                                } else t
+                            }
+                        }
+
+                        shouldTransform -> {
+                            transformFun = transform
+                        }
+
+                        else -> {
+                            transformFun = null
+                        }
                     }
                 }
             }
         }
+    }
+
+    private fun isSubtypeOfAFunction(type: KType): Boolean {
+        return type.isSubtypeOf(getKType<Function<*>>())
     }
 
     fun <T> handle(t: T): T {
@@ -290,7 +325,8 @@ class ValidationHandler private constructor(
                 get() = classAnnotation + typeAnnotation + additionalAnnotations
 
             companion object {
-                operator fun <T:Any> invoke(tClass: KClass<T>, annotations: List<Annotation> = listOf()): AnnotatedKType {
+                operator fun <T : Any> invoke(tClass: KClass<T>,
+                                              annotations: List<Annotation> = listOf()): AnnotatedKType {
                     val type = tClass.starProjectedType
                     return AnnotatedKType(
                         type,
@@ -322,7 +358,7 @@ class ValidationHandler private constructor(
             }()
         }
 
-        fun <T:Any> build(tClass: KClass<T>, annotations: List<Annotation> = listOf()): ValidationHandler {
+        fun <T : Any> build(tClass: KClass<T>, annotations: List<Annotation> = listOf()): ValidationHandler {
             return build(
                 AnnotatedKType(
                     tClass.starProjectedType,
