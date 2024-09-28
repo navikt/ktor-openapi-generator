@@ -4,11 +4,11 @@ import com.papsign.ktor.openapigen.modules.CachingModuleProvider
 import com.papsign.ktor.openapigen.modules.providers.AuthProvider
 import com.papsign.ktor.openapigen.modules.registerModule
 import com.papsign.ktor.openapigen.route.OpenAPIRoute
+import com.papsign.ktor.openapigen.route.VirtualWebHandlerExecutor
 import com.papsign.ktor.openapigen.route.response.AuthResponseContextImpl
 import com.papsign.ktor.openapigen.route.response.OpenAPIPipelineAuthContext
 import io.ktor.server.routing.Route
-import io.ktor.util.reflect.TypeInfo
-import io.ktor.util.reflect.typeInfo
+import kotlinx.coroutines.withContext
 import kotlin.reflect.KType
 import kotlin.reflect.typeOf
 
@@ -36,7 +36,9 @@ class OpenAPIAuthenticatedRoute<TAuth>(
                 responseType,
                 requestType
             ) { pipeline, responder, p, b ->
-                AuthResponseContextImpl<TAuth, TResponse>(pipeline, authProvider, this, responder).body(p, b)
+                withContext(VirtualWebHandlerExecutor.executor) {
+                    AuthResponseContextImpl<TAuth, TResponse>(pipeline, authProvider, this@handle, responder).body(p, b)
+                }
             }
         }
     }
@@ -54,7 +56,9 @@ class OpenAPIAuthenticatedRoute<TAuth>(
                 responseType,
                 typeOf<Unit>()
             ) { pipeline, responder, p: TParams, _ ->
-                AuthResponseContextImpl<TAuth, TResponse>(pipeline, authProvider, this, responder).body(p)
+                withContext(VirtualWebHandlerExecutor.executor) {
+                    AuthResponseContextImpl<TAuth, TResponse>(pipeline, authProvider, this@handle, responder).body(p)
+                }
             }
         }
     }
