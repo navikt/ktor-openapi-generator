@@ -74,7 +74,7 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.11.1") // junit testing framework
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.11.1") // generated parameters for tests
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.1") // testing runtime
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.11.2") // testing runtime
 }
 
 kotlin {
