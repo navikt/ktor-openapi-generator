@@ -10,7 +10,7 @@ object SwaggerUIVersion {
     val version: String
 
     init {
-        val file = this::class.java.getResourceAsStream("/META-INF/maven/org/webjars/swagger-ui/pom.properties")
+        val file = this::class.java.getResourceAsStream("/META-INF/maven/org.webjars/swagger-ui/pom.properties")
         if(file != null) {
 
             val properties = Properties()
