@@ -33,4 +33,17 @@ class MinimalExampleTest {
         assertEquals(HttpStatusCode.OK, response.status)
         assertEquals(SomeResponse(bar = "Hello world! From body: hello from body."), response.body())
     }
+
+    @Test
+    fun `test thadddt minimal example works`(): Unit = testApplication {
+        application(Application::minimalExample)
+
+        val client = createClient { install(ContentNegotiation) { jackson() } }
+
+        val response = client.get("/forbidden/112") {
+            header(HttpHeaders.ContentType, ContentType.Application.Pdf.toString())
+        }
+        assertEquals(HttpStatusCode.Forbidden,  response.status)
+        assertEquals("{}", response.body<String>())
+    }
 }

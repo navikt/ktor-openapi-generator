@@ -3,6 +3,7 @@ package com.papsign.ktor.openapigen.content.type.binary
 import com.papsign.ktor.openapigen.route.apiRouting
 import com.papsign.ktor.openapigen.route.path.normal.post
 import com.papsign.ktor.openapigen.route.response.respond
+import com.papsign.ktor.openapigen.route.response.respondWithStatus
 import com.papsign.ktor.openapigen.route.route
 import installOpenAPI
 import io.ktor.http.*
@@ -37,6 +38,11 @@ class BinaryContentTypeParserTest {
                         val actual = body.stream.readBytes()
                         assertArrayEquals(bytes, actual)
                         respond(Stream(actual.inputStream()))
+                    }
+                }
+                route("forbidden") {
+                    post<Unit, Stream, Stream> { _, body ->
+                        respondWithStatus(HttpStatusCode.Forbidden)
                     }
                 }
             }
@@ -81,6 +87,15 @@ class BinaryContentTypeParserTest {
             println("Test: Bad Content-Type")
             handleRequest(HttpMethod.Post, route) {
                 addHeader(HttpHeaders.ContentType, ContentType.Application.Json.toString())
+                addHeader(HttpHeaders.Accept, contentType)
+                setBody(bytes)
+            }.apply {
+                assertEquals(HttpStatusCode.UnsupportedMediaType, response.status())
+            }
+
+            println("Test: Forbidden, respondWithStatus")
+            handleRequest(HttpMethod.Post, "forbidden") {
+                addHeader(HttpHeaders.ContentType, contentType)
                 addHeader(HttpHeaders.Accept, contentType)
                 setBody(bytes)
             }.apply {
