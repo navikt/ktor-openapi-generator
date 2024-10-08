@@ -70,7 +70,7 @@ fun Application.minimalExample() {
     }
 }
 
-//@BinaryResponse(contentTypes = ["application/pdf"])
+@BinaryResponse(contentTypes = ["application/pdf"])
 data class DokumentResponsDTO(val stream: InputStream)
 
 data class SomeParams(@PathParam("who to say hello") val name: String)
