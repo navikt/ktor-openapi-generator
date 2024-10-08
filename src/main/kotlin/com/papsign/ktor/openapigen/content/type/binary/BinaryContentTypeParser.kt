@@ -43,8 +43,14 @@ object BinaryContentTypeParser: BodyParser, ResponseSerializer, OpenAPIGenModule
     }
 
     override suspend fun <T : Any> respond(statusCode: HttpStatusCode, response: T, request: PipelineContext<Unit, ApplicationCall>, contentType: ContentType) {
+        if (response is Unit) {
+            request.context.respondBytes(response.toString().toByteArray(), contentType, statusCode)
+            return
+        }
+
         @Suppress("UNCHECKED_CAST")
-        val prop = response::class.declaredMemberProperties.first { it.visibility == KVisibility.PUBLIC } as KProperty1<T, *>
+        val prop =
+            response::class.declaredMemberProperties.firstOrNull() { it.visibility == KVisibility.PUBLIC } as KProperty1<T, *>
         val data = prop.get(response) as InputStream
         request.context.respondBytes(data.readBytes(), contentType, statusCode)
     }

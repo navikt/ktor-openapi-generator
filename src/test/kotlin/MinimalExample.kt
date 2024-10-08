@@ -3,15 +3,19 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.papsign.ktor.openapigen.BehovType
 import com.papsign.ktor.openapigen.OpenAPIGen
 import com.papsign.ktor.openapigen.annotations.parameters.PathParam
+import com.papsign.ktor.openapigen.content.type.binary.BinaryResponse
 import com.papsign.ktor.openapigen.route.apiRouting
 import com.papsign.ktor.openapigen.route.path.normal.get
 import com.papsign.ktor.openapigen.route.path.normal.post
 import com.papsign.ktor.openapigen.route.response.respond
+import com.papsign.ktor.openapigen.route.response.respondWithStatus
 import com.papsign.ktor.openapigen.route.route
+import io.ktor.http.*
 import io.ktor.serialization.jackson.jackson
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import java.io.InputStream
 
 /**
  * Minimal example of OpenAPI plugin for Ktor.
@@ -56,8 +60,18 @@ fun Application.minimalExample() {
                 respond(dto)
             }
         }
+
+        route("/forbidden/{name}") {
+            get<SomeParams, DokumentResponsDTO> { params ->
+                params.name
+                respondWithStatus(HttpStatusCode.Forbidden)
+            }
+        }
     }
 }
+
+@BinaryResponse(contentTypes = ["application/pdf"])
+data class DokumentResponsDTO(val stream: InputStream)
 
 data class SomeParams(@PathParam("who to say hello") val name: String)
 data class SomeRequest(val foo: String)
