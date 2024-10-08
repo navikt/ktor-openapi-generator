@@ -7,11 +7,8 @@ import com.papsign.ktor.openapigen.route.response.respondWithStatus
 import com.papsign.ktor.openapigen.route.route
 import installOpenAPI
 import io.ktor.http.*
-import io.ktor.server.testing.contentType
-import io.ktor.server.testing.handleRequest
-import io.ktor.server.testing.setBody
-import io.ktor.server.testing.withTestApplication
-import org.junit.Assert.*
+import io.ktor.server.testing.*
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import java.io.InputStream
 import kotlin.random.Random
@@ -36,7 +33,7 @@ class BinaryContentTypeParserTest {
                 route(route) {
                     post<Unit, Stream, Stream> { _, body ->
                         val actual = body.stream.readBytes()
-                        assertArrayEquals(bytes, actual)
+                        Assertions.assertArrayEquals(bytes, actual)
                         respond(Stream(actual.inputStream()))
                     }
                 }
@@ -54,8 +51,8 @@ class BinaryContentTypeParserTest {
                 addHeader(HttpHeaders.Accept, contentType)
                 setBody(bytes)
             }.apply {
-                assertEquals(ContentType.parse(contentType), response.contentType())
-                assertArrayEquals(bytes, response.byteContent)
+                Assertions.assertEquals(ContentType.parse(contentType), response.contentType())
+                Assertions.assertArrayEquals(bytes, response.byteContent)
             }
 
             println("Test: Missing Accept")
@@ -63,8 +60,8 @@ class BinaryContentTypeParserTest {
                 addHeader(HttpHeaders.ContentType, contentType)
                 setBody(bytes)
             }.apply {
-                assertEquals(ContentType.parse(contentType), response.contentType())
-                assertArrayEquals(bytes, response.byteContent)
+                Assertions.assertEquals(ContentType.parse(contentType), response.contentType())
+                Assertions.assertArrayEquals(bytes, response.byteContent)
             }
 
             println("Test: Missing Content-Type")
@@ -72,7 +69,7 @@ class BinaryContentTypeParserTest {
                 addHeader(HttpHeaders.Accept, contentType)
                 setBody(bytes)
             }.apply {
-                assertEquals(HttpStatusCode.UnsupportedMediaType, response.status())
+                Assertions.assertEquals(HttpStatusCode.UnsupportedMediaType, response.status())
             }
 
             println("Test: Bad Accept")
@@ -81,7 +78,7 @@ class BinaryContentTypeParserTest {
                 addHeader(HttpHeaders.Accept, ContentType.Application.Json.toString())
                 setBody(bytes)
             }.apply {
-                assertEquals(HttpStatusCode.BadRequest, response.status())
+                Assertions.assertEquals(HttpStatusCode.BadRequest, response.status())
             }
 
             println("Test: Bad Content-Type")
@@ -90,7 +87,7 @@ class BinaryContentTypeParserTest {
                 addHeader(HttpHeaders.Accept, contentType)
                 setBody(bytes)
             }.apply {
-                assertEquals(HttpStatusCode.UnsupportedMediaType, response.status())
+                Assertions.assertEquals(HttpStatusCode.UnsupportedMediaType, response.status())
             }
 
             println("Test: Forbidden, respondWithStatus")
@@ -99,7 +96,7 @@ class BinaryContentTypeParserTest {
                 addHeader(HttpHeaders.Accept, contentType)
                 setBody(bytes)
             }.apply {
-                assertEquals(HttpStatusCode.UnsupportedMediaType, response.status())
+                Assertions.assertEquals(HttpStatusCode.Forbidden, response.status())
             }
         }
     }
