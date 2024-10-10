@@ -17,7 +17,7 @@ internal class JwtAuthDocumentationGenerationTest {
         application {
             testServerWithJwtAuth()
         }
-        client.get("//openapi.json").apply {
+        client.get("http://localhost/openapi.json").apply {
             assertEquals(HttpStatusCode.OK, status)
             val bodyAsText = bodyAsText()
             assertTrue(
