@@ -14,9 +14,12 @@ import com.papsign.ktor.openapigen.route.route
 import com.papsign.ktor.openapigen.route.throws
 import installJackson
 import installOpenAPI
+import io.ktor.client.request.get
+import io.ktor.client.request.header
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
 import io.ktor.http.*
-import io.ktor.server.application.ApplicationCall
-import io.ktor.server.application.call
+import io.ktor.http.ContentType.Application
 import io.ktor.server.application.install
 import io.ktor.server.auth.Authentication
 import io.ktor.server.auth.UserIdPrincipal
@@ -24,8 +27,8 @@ import io.ktor.server.auth.authenticate
 import io.ktor.server.auth.authentication
 import io.ktor.server.auth.basic
 import io.ktor.server.response.respond
+import io.ktor.server.routing.RoutingContext
 import io.ktor.server.testing.*
-import io.ktor.util.pipeline.*
 import org.junit.jupiter.api.Test
 import java.util.*
 import kotlin.test.assertEquals
@@ -35,90 +38,87 @@ class GenericRoutesTest {
 
     @Test
     fun genericRoutesTest() {
-        withTestApplication({
-            installOpenAPI()
-            installJackson()
+        testApplication {
+            application {
+                installOpenAPI()
+                installJackson()
 
-            install(Authentication) {
-                basic {
-                    realm = "Access to the '/private' path"
-                    validate { credentials ->
-                        if (credentials.name == "jetbrains" && credentials.password == "foobar") {
-                            UserIdPrincipal(credentials.name)
-                        } else {
-                            null
+                install(Authentication) {
+                    basic {
+                        realm = "Access to the '/private' path"
+                        validate { credentials ->
+                            if (credentials.name == "jetbrains" && credentials.password == "foobar") {
+                                UserIdPrincipal(credentials.name)
+                            } else {
+                                null
+                            }
+                        }
+                    }
+                }
+
+                val service = ObjectService
+                apiRouting {
+                    route("objects") {
+                        treeNodeRoute(service)
+                    }
+                    auth {
+                        route("private/objects") {
+                            treeNodeRoutePrivate(service)
                         }
                     }
                 }
             }
-
-
-            val service = ObjectService
-            apiRouting {
-                route("objects") {
-                    treeNodeRoute(service)
-                }
-                auth {
-                    route("private/objects") {
-                        treeNodeRoutePrivate(service)
-                    }
-                }
+            client.get("http://localhost/objects").apply {
+                assertEquals(HttpStatusCode.OK, status)
+                assertTrue { contentType()?.match(Application.Json) == true }
             }
-        }) {
-            handleRequest(HttpMethod.Get,"/objects").apply {
-                assertEquals(HttpStatusCode.OK, response.status())
-                assertTrue { response.contentType().match("application/json") }
+            client.get("http://localhost/objects/1").apply {
+                assertEquals(HttpStatusCode.OK, status)
+                assertTrue { contentType()?.match(Application.Json) == true }
             }
-            handleRequest(HttpMethod.Get,"/objects/1").apply {
-                assertEquals(HttpStatusCode.OK, response.status())
-                assertTrue { response.contentType().match("application/json") }
-            }
-            handleRequest(HttpMethod.Post,"/objects") {
-                addHeader(HttpHeaders.ContentType, "application/json")
-                addHeader(HttpHeaders.Accept, "application/json")
+            client.post("http://localhost/objects") {
+                header(HttpHeaders.ContentType, "application/json")
+                header(HttpHeaders.Accept, "application/json")
                 setBody(""" { "name": "test" } """)
             }.apply {
-                assertEquals(HttpStatusCode.OK, response.status())
-                assertTrue { response.contentType().match("application/json") }
+                assertEquals(HttpStatusCode.OK, status)
+                assertTrue { contentType()?.match(Application.Json) == true }
             }
 
-            fun handleRequestWithBasic(method: HttpMethod, uri: String, setup: TestApplicationRequest.() -> Unit = {}): TestApplicationCall {
-                return handleRequest(method, uri) {
-                    val up = Base64.getEncoder().encodeToString("jetbrains:foobar".toByteArray())
-                    addHeader(HttpHeaders.Authorization, "Basic $up")
-                    setup()
-                }
+            client.get("http://localhost/private/objects").apply {
+                assertEquals(HttpStatusCode.Unauthorized, status)
             }
-
-            handleRequest(HttpMethod.Get,"/private/objects").apply {
-                assertEquals(HttpStatusCode.Unauthorized, response.status())
-            }
-
-            handleRequestWithBasic(HttpMethod.Get,"/private/objects") {
+            client.get("http://localhost/private/objects") {
+                val up = Base64.getEncoder().encodeToString("jetbrains:foobar".toByteArray())
+                header(HttpHeaders.Authorization, "Basic $up")
             }.apply {
-                assertEquals(HttpStatusCode.OK, response.status())
-                assertTrue { response.contentType().match("application/json") }
+                assertEquals(HttpStatusCode.OK, status)
+                assertTrue { contentType()?.match(Application.Json) == true }
             }
-            handleRequestWithBasic(HttpMethod.Get,"/private/objects/1").apply {
-                assertEquals(HttpStatusCode.OK, response.status())
-                assertTrue { response.contentType().match("application/json") }
+            client.get("http://localhost/private/objects/1") {
+                val up = Base64.getEncoder().encodeToString("jetbrains:foobar".toByteArray())
+                header(HttpHeaders.Authorization, "Basic $up")
+            }.apply {
+                assertEquals(HttpStatusCode.OK, status)
+                assertTrue { contentType()?.match(Application.Json) == true }
             }
-            handleRequestWithBasic(HttpMethod.Post,"/private/objects") {
-                addHeader(HttpHeaders.ContentType, "application/json")
-                addHeader(HttpHeaders.Accept, "application/json")
+            client.post("http://localhost/private/objects") {
+                val up = Base64.getEncoder().encodeToString("jetbrains:foobar".toByteArray())
+                header(HttpHeaders.Authorization, "Basic $up")
+                header(HttpHeaders.ContentType, "application/json")
+                header(HttpHeaders.Accept, "application/json")
                 setBody(""" { "name": "test" } """)
             }.apply {
-                assertEquals(HttpStatusCode.OK, response.status())
-                assertTrue { response.contentType().match("application/json") }
+                assertEquals(HttpStatusCode.OK, status)
+                assertTrue { contentType()?.match(Application.Json) == true }
             }
-
         }
     }
 
 
     data class ObjectNewDto(override val name: String, override val parentId: Long?) : TreeNodeNew
 
-    data class ObjectDto(override val name: String, override val parentId: Long?, override val id: Long): TreeNodeBase
+    data class ObjectDto(override val name: String, override val parentId: Long?, override val id: Long) : TreeNodeBase
 
     object ObjectService : TreeNodeService<ObjectNewDto, ObjectDto> {
         override fun listNodes(parentId: Long?): List<ObjectDto> {
@@ -229,7 +229,11 @@ class GenericRoutesTest {
     enum class Scopes : Described
 
     data class ResponseError(val code: Int, val description: String, val message: String? = null) {
-        constructor(statusCode: HttpStatusCode, message: String? = null) : this(statusCode.value, statusCode.description, message)
+        constructor(statusCode: HttpStatusCode, message: String? = null) : this(
+            statusCode.value,
+            statusCode.description,
+            message
+        )
     }
 
     object BasicAuthProvider : AuthProvider<UserIdPrincipal> {
@@ -249,8 +253,8 @@ class GenericRoutesTest {
             )
 
         // gets auth information at runtime
-        override suspend fun getAuth(pipeline: PipelineContext<Unit, ApplicationCall>): UserIdPrincipal {
-            return pipeline.context.authentication.principal()
+        override suspend fun getAuth(pipeline: RoutingContext): UserIdPrincipal {
+            return pipeline.call.authentication.principal()
                 ?: throw UnauthorizedException("Unable to verify given credentials, or credentials are missing.")
         }
 
@@ -259,7 +263,12 @@ class GenericRoutesTest {
             return OpenAPIAuthenticatedRoute(route.ktorRoute.authenticate { }, route.provider.child(), this)
                 .throws(
                     status = HttpStatusCode.Unauthorized.description("Your identity could not be verified."),
-                    gen = { e: UnauthorizedException -> return@throws ResponseError(HttpStatusCode.Unauthorized, e.message) }
+                    gen = { e: UnauthorizedException ->
+                        return@throws ResponseError(
+                            HttpStatusCode.Unauthorized,
+                            e.message
+                        )
+                    }
                 )
                 .throws(
                     status = HttpStatusCode.Forbidden.description("Your access rights are insufficient."),

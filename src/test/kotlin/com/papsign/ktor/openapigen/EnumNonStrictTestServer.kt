@@ -7,6 +7,8 @@ import com.papsign.ktor.openapigen.exceptions.OpenAPIRequiredFieldException
 import com.papsign.ktor.openapigen.route.apiRouting
 import com.papsign.ktor.openapigen.route.path.normal.get
 import com.papsign.ktor.openapigen.route.response.respond
+import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.*
 import io.ktor.server.application.Application
 import io.ktor.server.application.install
@@ -68,96 +70,120 @@ class NonStrictEnumTestServer {
 
     @Test
     fun `nullable enum could be omitted and it will be null`() {
-        withTestApplication({ nullableEnum() }) {
-            handleRequest(HttpMethod.Get, "/").apply {
-                assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("null", response.content)
+        testApplication {
+            application {
+                nullableEnum()
+            }
+            client.get("http://localhost/").apply {
+                assertEquals(HttpStatusCode.OK, status)
+                assertEquals("null", bodyAsText())
             }
         }
     }
 
     @Test
     fun `nullable enum should be parsed correctly`() {
-        withTestApplication({ nullableEnum() }) {
-            handleRequest(HttpMethod.Get, "/?type=VALID").apply {
-                assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("VALID", response.content)
+        testApplication {
+            application {
+                nullableEnum()
             }
-            handleRequest(HttpMethod.Get, "/?type=ALSO_VALID").apply {
-                assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("ALSO_VALID", response.content)
+            client.get("http://localhost/?type=VALID").apply {
+                assertEquals(HttpStatusCode.OK, status)
+                assertEquals("VALID", bodyAsText())
+            }
+            client.get("http://localhost/?type=ALSO_VALID").apply {
+                assertEquals(HttpStatusCode.OK, status)
+                assertEquals("ALSO_VALID", bodyAsText())
             }
         }
     }
 
     @Test
     fun `nullable enum parsing should be case-sensitive and should return 200 with null result`() {
-        withTestApplication({ nullableEnum() }) {
-            handleRequest(HttpMethod.Get, "/?type=valid").apply {
-                assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("null", response.content)
+        testApplication {
+            application {
+                nullableEnum()
             }
-            handleRequest(HttpMethod.Get, "/?type=also_valid").apply {
-                assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("null", response.content)
+            client.get("http://localhost/?type=valid").apply {
+                assertEquals(HttpStatusCode.OK, status)
+                assertEquals("null", bodyAsText())
+            }
+            client.get("http://localhost/?type=also_valid").apply {
+                assertEquals(HttpStatusCode.OK, status)
+                assertEquals("null", bodyAsText())
             }
         }
     }
 
     @Test
     fun `nullable enum parsing should return 200 with null result on parse values outside of enum`() {
-        withTestApplication({ nullableEnum() }) {
-            handleRequest(HttpMethod.Get, "/?type=what").apply {
-                assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("null", response.content)
+        testApplication {
+            application {
+                nullableEnum()
+            }
+            client.get("http://localhost/?type=what").apply {
+                assertEquals(HttpStatusCode.OK, status)
+                assertEquals("null", bodyAsText())
             }
         }
     }
 
     @Test
     fun `non-nullable enum cannot be omitted`() {
-        withTestApplication({ nonNullableEnum() }) {
-            handleRequest(HttpMethod.Get, "/").apply {
-                assertEquals(HttpStatusCode.BadRequest, response.status())
-                assertEquals("The field type is required", response.content)
+        testApplication {
+            application {
+                nonNullableEnum()
+            }
+            client.get("http://localhost/").apply {
+                assertEquals(HttpStatusCode.BadRequest, status)
+                assertEquals("The field type is required", bodyAsText())
             }
         }
     }
 
     @Test
     fun `non-nullable enum should be parsed correctly`() {
-        withTestApplication({ nonNullableEnum() }) {
-            handleRequest(HttpMethod.Get, "/?type=VALID").apply {
-                assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("VALID", response.content)
+        testApplication {
+            application {
+                nonNullableEnum()
             }
-            handleRequest(HttpMethod.Get, "/?type=ALSO_VALID").apply {
-                assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("ALSO_VALID", response.content)
+            client.get("http://localhost/?type=VALID").apply {
+                assertEquals(HttpStatusCode.OK, status)
+                assertEquals("VALID", bodyAsText())
+            }
+            client.get("http://localhost/?type=ALSO_VALID").apply {
+                assertEquals(HttpStatusCode.OK, status)
+                assertEquals("ALSO_VALID", bodyAsText())
             }
         }
     }
 
     @Test
     fun `non-nullable enum parsing should be case-sensitive and should throw on passing wrong case`() {
-        withTestApplication({ nonNullableEnum() }) {
-            handleRequest(HttpMethod.Get, "/?type=valid").apply {
-                assertEquals(HttpStatusCode.BadRequest, response.status())
-                assertEquals("The field type is required", response.content)
+        testApplication {
+            application {
+                nonNullableEnum()
             }
-            handleRequest(HttpMethod.Get, "/?type=also_valid").apply {
-                assertEquals(HttpStatusCode.BadRequest, response.status())
-                assertEquals("The field type is required", response.content)
+            client.get("http://localhost/?type=valid").apply {
+                assertEquals(HttpStatusCode.BadRequest, status)
+                assertEquals("The field type is required", bodyAsText())
+            }
+            client.get("http://localhost/?type=also_valid").apply {
+                assertEquals(HttpStatusCode.BadRequest, status)
+                assertEquals("The field type is required", bodyAsText())
             }
         }
     }
 
     @Test
     fun `non-nullable enum parsing should not parse values outside of enum`() {
-        withTestApplication({ nonNullableEnum() }) {
-            handleRequest(HttpMethod.Get, "/?type=what").apply {
-                assertEquals(HttpStatusCode.BadRequest, response.status())
-                assertEquals("The field type is required", response.content)
+        testApplication {
+            application {
+                nonNullableEnum()
+            }
+            client.get("http://localhost/?type=what").apply {
+                assertEquals(HttpStatusCode.BadRequest, status)
+                assertEquals("The field type is required", bodyAsText())
             }
         }
     }

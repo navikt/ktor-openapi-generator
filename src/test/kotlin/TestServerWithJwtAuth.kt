@@ -30,9 +30,6 @@ import com.papsign.ktor.openapigen.schema.namer.DefaultSchemaNamer
 import com.papsign.ktor.openapigen.schema.namer.SchemaNamer
 import io.ktor.serialization.jackson.jackson
 import io.ktor.server.application.Application
-import io.ktor.server.application.ApplicationCall
-import io.ktor.server.application.application
-import io.ktor.server.application.call
 import io.ktor.server.application.install
 import io.ktor.server.auth.Authentication
 import io.ktor.server.auth.AuthenticationConfig
@@ -48,9 +45,9 @@ import io.ktor.server.request.host
 import io.ktor.server.request.port
 import io.ktor.server.response.respond
 import io.ktor.server.response.respondRedirect
+import io.ktor.server.routing.RoutingContext
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
-import io.ktor.util.pipeline.PipelineContext
 import java.net.URL
 import java.util.concurrent.TimeUnit
 import kotlin.reflect.KType
@@ -124,9 +121,9 @@ object TestServerWithJwtAuth {
                         ).contains(call.request.port())
                     ) "" else ":${call.request.port()}"
                 )
-                application.openAPIGen.api.servers.add(0, host)
-                call.respond(application.openAPIGen.api.serialize())
-                application.openAPIGen.api.servers.remove(host)
+                call.application.openAPIGen.api.servers.add(0, host)
+                call.respond(call.application.openAPIGen.api.serialize())
+                call.application.openAPIGen.api.servers.remove(host)
             }
 
             get("/") {
@@ -189,8 +186,8 @@ object TestServerWithJwtAuth {
                 )
             )
 
-        override suspend fun getAuth(pipeline: PipelineContext<Unit, ApplicationCall>): UserPrincipal {
-            return pipeline.context.authentication.principal() ?: throw RuntimeException("No JWTPrincipal")
+        override suspend fun getAuth(pipeline: RoutingContext): UserPrincipal {
+            return pipeline.call.authentication.principal() ?: throw RuntimeException("No JWTPrincipal")
         }
 
         override fun apply(route: NormalOpenAPIRoute): OpenAPIAuthenticatedRoute<UserPrincipal> {
