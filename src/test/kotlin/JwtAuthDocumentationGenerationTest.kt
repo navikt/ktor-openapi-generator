@@ -1,23 +1,27 @@
 package origo.booking
 
 import TestServerWithJwtAuth.testServerWithJwtAuth
+import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.*
 import io.ktor.server.testing.*
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
 
 
 internal class JwtAuthDocumentationGenerationTest {
 
     @Test
-    fun testRequest() = withTestApplication({
-        testServerWithJwtAuth()
-    }) {
-        with(handleRequest(HttpMethod.Get, "//openapi.json")) {
-            assertEquals(HttpStatusCode.OK, response.status())
+    fun testRequest() = testApplication {
+        application {
+            testServerWithJwtAuth()
+        }
+        client.get("http://localhost/openapi.json").apply {
+            assertEquals(HttpStatusCode.OK, status)
+            val bodyAsText = bodyAsText()
             assertTrue(
-                response.content!!.contains(
+                bodyAsText.contains(
                     """"securitySchemes" : {
       "ThisIsSchemeName" : {
         "in" : "cookie",
@@ -33,7 +37,7 @@ internal class JwtAuthDocumentationGenerationTest {
                 )
             )
             assertTrue(
-                response.content!!.contains(
+                bodyAsText.contains(
                     """"security" : [ {
           "jwtAuth" : [ ],
           "ThisIsSchemeName" : [ ]

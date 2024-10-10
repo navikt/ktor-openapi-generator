@@ -8,31 +8,32 @@ import com.papsign.ktor.openapigen.route.apiRouting
 import com.papsign.ktor.openapigen.route.path.normal.post
 import com.papsign.ktor.openapigen.route.response.respond
 import com.papsign.ktor.openapigen.route.route
+import io.ktor.client.request.get
+import io.ktor.client.statement.bodyAsText
 import io.ktor.http.*
-import io.ktor.server.application.log
 import io.ktor.server.testing.*
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.jupiter.api.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 internal class FormDocumentationGenerationTest {
 
     @Test
-    fun formDataTestRequest() = withTestApplication({
-        setupBaseTestServer()
-        apiRouting {
-            route("form-data"){
-                post<Unit, TestServer.StringResponse, FormData>{ _, _ ->
-                    respond(TestServer.StringResponse("result"))
+    fun formDataTestRequest() = testApplication {
+        application {
+            setupBaseTestServer()
+            apiRouting {
+                route("form-data") {
+                    post<Unit, TestServer.StringResponse, FormData> { _, _ ->
+                        respond(TestServer.StringResponse("result"))
+                    }
                 }
             }
         }
-    }) {
-        with(handleRequest(HttpMethod.Get, "//openapi.json")) {
-            this@withTestApplication.application.log.debug(response.content)
-            assertEquals(HttpStatusCode.OK, response.status())
+        client.get("http://localhost/openapi.json").apply {
+            assertEquals(HttpStatusCode.OK, status)
             assertTrue(
-                response.content!!.contains(
+                bodyAsText().contains(
                     """  "paths" : {
     "/form-data" : {
       "post" : {
@@ -47,26 +48,25 @@ internal class FormDocumentationGenerationTest {
         },"""
                 )
             )
-
         }
     }
 
     @Test
-    fun multipartFormDataTestRequest() = withTestApplication({
-        setupBaseTestServer()
-        apiRouting {
-            route("multipart-data"){
-                post<Unit, TestServer.StringResponse, MultiPartForm>{ _, _ ->
-                    respond(TestServer.StringResponse("result"))
+    fun multipartFormDataTestRequest() = testApplication {
+        application {
+            setupBaseTestServer()
+            apiRouting {
+                route("multipart-data") {
+                    post<Unit, TestServer.StringResponse, MultiPartForm> { _, _ ->
+                        respond(TestServer.StringResponse("result"))
+                    }
                 }
             }
         }
-    }) {
-        with(handleRequest(HttpMethod.Get, "//openapi.json")) {
-            this@withTestApplication.application.log.debug(response.content)
-            assertEquals(HttpStatusCode.OK, response.status())
+        client.get("http://localhost/openapi.json").apply {
+            assertEquals(HttpStatusCode.OK, status)
             assertTrue(
-                response.content!!.contains(
+                bodyAsText().contains(
                     """  "paths" : {
     "/multipart-data" : {
       "post" : {
@@ -81,26 +81,25 @@ internal class FormDocumentationGenerationTest {
         },"""
                 )
             )
-
         }
     }
 
     @Test
-    fun defaultFormDataTestRequest() = withTestApplication({
-        setupBaseTestServer()
-        apiRouting {
-            route("default-form-data"){
-                post<Unit, TestServer.StringResponse, DefaultFormData>{ _, _ ->
-                    respond(TestServer.StringResponse("result"))
+    fun defaultFormDataTestRequest() = testApplication {
+        application {
+            setupBaseTestServer()
+            apiRouting {
+                route("default-form-data") {
+                    post<Unit, TestServer.StringResponse, DefaultFormData> { _, _ ->
+                        respond(TestServer.StringResponse("result"))
+                    }
                 }
             }
         }
-    }) {
-        with(handleRequest(HttpMethod.Get, "//openapi.json")) {
-            this@withTestApplication.application.log.debug(response.content)
-            assertEquals(HttpStatusCode.OK, response.status())
+        client.get("http://localhost/openapi.json").apply {
+            assertEquals(HttpStatusCode.OK, status)
             assertTrue(
-                response.content!!.contains(
+                bodyAsText().contains(
                     """  "paths" : {
     "/default-form-data" : {
       "post" : {
@@ -115,7 +114,6 @@ internal class FormDocumentationGenerationTest {
         },"""
                 )
             )
-
         }
     }
 }

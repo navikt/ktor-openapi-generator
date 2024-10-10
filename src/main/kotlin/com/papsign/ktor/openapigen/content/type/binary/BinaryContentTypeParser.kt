@@ -13,10 +13,9 @@ import com.papsign.ktor.openapigen.model.schema.SchemaModel
 import com.papsign.ktor.openapigen.modules.ModuleProvider
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.application.ApplicationCall
 import io.ktor.server.request.receiveStream
 import io.ktor.server.response.respondBytes
-import io.ktor.util.pipeline.PipelineContext
+import io.ktor.server.routing.RoutingContext
 import java.io.InputStream
 import kotlin.reflect.*
 import kotlin.reflect.full.declaredMemberProperties
@@ -37,14 +36,14 @@ object BinaryContentTypeParser: BodyParser, ResponseSerializer, OpenAPIGenModule
         return type.jvmErasure.findAnnotation<BinaryResponse>()?.contentTypes?.map(ContentType.Companion::parse) ?: listOf()
     }
 
-    override suspend fun <T : Any> respond(response: T, request: PipelineContext<Unit, ApplicationCall>, contentType: ContentType) {
+    override suspend fun <T : Any> respond(response: T, request: RoutingContext, contentType: ContentType) {
         val code = response::class.findAnnotation<Response>()?.statusCode?.let { HttpStatusCode.fromValue(it) } ?: HttpStatusCode.OK
         respond(code, response, request, contentType)
     }
 
-    override suspend fun <T : Any> respond(statusCode: HttpStatusCode, response: T, request: PipelineContext<Unit, ApplicationCall>, contentType: ContentType) {
+    override suspend fun <T : Any> respond(statusCode: HttpStatusCode, response: T, request: RoutingContext, contentType: ContentType) {
         if (response is Unit) {
-            request.context.respondBytes(response.toString().toByteArray(), contentType, statusCode)
+            request.call.respondBytes(response.toString().toByteArray(), contentType, statusCode)
             return
         }
 
@@ -52,12 +51,12 @@ object BinaryContentTypeParser: BodyParser, ResponseSerializer, OpenAPIGenModule
         val prop =
             response::class.declaredMemberProperties.firstOrNull() { it.visibility == KVisibility.PUBLIC } as KProperty1<T, *>
         val data = prop.get(response) as InputStream
-        request.context.respondBytes(data.readBytes(), contentType, statusCode)
+        request.call.respondBytes(data.readBytes(), contentType, statusCode)
     }
 
     @Suppress("UNCHECKED_CAST")
-    override suspend fun <T : Any> parseBody(clazz: KType, request: PipelineContext<Unit, ApplicationCall>): T {
-        return (clazz.classifier as KClass<T>).getAcceptableConstructor().call( request.context.receiveStream())
+    override suspend fun <T : Any> parseBody(clazz: KType, request: RoutingContext): T {
+        return (clazz.classifier as KClass<T>).getAcceptableConstructor().call( request.call.receiveStream())
     }
 
     override fun <T> getMediaType(type: KType, apiGen: OpenAPIGen, provider: ModuleProvider<*>, example: T?, usage: ContentTypeProvider.Usage): Map<ContentType, MediaTypeModel<T>>? {

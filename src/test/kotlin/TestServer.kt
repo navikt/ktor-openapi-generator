@@ -34,7 +34,6 @@ import com.papsign.ktor.openapigen.route.apiRouting
 import com.papsign.ktor.openapigen.route.info
 import com.papsign.ktor.openapigen.route.path.normal.get
 import com.papsign.ktor.openapigen.route.path.normal.post
-import com.papsign.ktor.openapigen.route.path.normal.route
 import com.papsign.ktor.openapigen.route.response.respond
 import com.papsign.ktor.openapigen.route.responseAnnotationStatus
 import com.papsign.ktor.openapigen.route.route
@@ -46,8 +45,6 @@ import com.papsign.ktor.openapigen.schema.namer.SchemaNamer
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.jackson.jackson
 import io.ktor.server.application.Application
-import io.ktor.server.application.application
-import io.ktor.server.application.call
 import io.ktor.server.application.install
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
@@ -345,9 +342,9 @@ object TestServer {
                         ).contains(call.request.port())
                     ) "" else ":${call.request.port()}"
                 )
-                this.application.openAPIGen.api.servers.add(0, host)
-                call.respond(application.openAPIGen.api.serialize())
-                application.openAPIGen.api.servers.remove(host)
+                this.call.application.openAPIGen.api.servers.add(0, host)
+                call.respond(call.application.openAPIGen.api.serialize())
+                call.application.openAPIGen.api.servers.remove(host)
             }
 
             get("/") {

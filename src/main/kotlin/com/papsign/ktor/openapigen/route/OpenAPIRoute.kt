@@ -15,15 +15,12 @@ import com.papsign.ktor.openapigen.parameters.util.buildParameterHandler
 import com.papsign.ktor.openapigen.route.response.Responder
 import com.papsign.ktor.openapigen.validation.ValidationHandler
 import io.ktor.http.ContentType
-import io.ktor.server.application.ApplicationCall
-import io.ktor.server.application.call
 import io.ktor.server.request.contentType
 import io.ktor.server.routing.Route
+import io.ktor.server.routing.RoutingContext
 import io.ktor.server.routing.accept
 import io.ktor.server.routing.application
 import io.ktor.server.routing.contentType
-import io.ktor.util.pipeline.PipelineContext
-import io.ktor.util.reflect.TypeInfo
 import kotlin.reflect.KType
 import kotlin.reflect.KTypeProjection
 import kotlin.reflect.KVariance
@@ -38,7 +35,7 @@ abstract class OpenAPIRoute<T : OpenAPIRoute<T>>(val ktorRoute: Route, val provi
         paramsType: KType,
         responseType: KType,
         bodyType: KType,
-        pass: suspend OpenAPIRoute<*>.(pipeline: PipelineContext<Unit, ApplicationCall>, responder: Responder, P, B) -> Unit
+        pass: suspend OpenAPIRoute<*>.(pipeline: RoutingContext, responder: Responder, P, B) -> Unit
     ) {
         val parameterHandler = buildParameterHandler<P>(paramsType)
         provider.registerModule(parameterHandler, ParameterHandler::class.createType(listOf(KTypeProjection(KVariance.INVARIANT, paramsType))))
