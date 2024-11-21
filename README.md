@@ -4,7 +4,7 @@ The Ktor OpenAPI Generator is a library to automatically generate the descriptor
 
 ```kotlin
 dependencies {
-    implementation("no.nav:ktor-openapi-generator:1.0.10")
+    implementation("no.nav:ktor-openapi-generator:1.0.46")
 }
 ```
 
