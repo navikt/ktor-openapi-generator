@@ -38,7 +38,7 @@ fun getCheckedOutGitCommitHash(): String {
 }
 
 val ktorVersion = "3.0.1"
-val swaggerUiVersion = "5.17.14"
+val swaggerUiVersion = "5.18.2"
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
