@@ -69,7 +69,7 @@ jobs:
         run: gradle -Pversion=${{ steps.tag.outputs.version }} dokkaHtml
 
       - name: Deploy API documentation to Github Pages
-        uses: JamesIves/github-pages-deploy-action@v4.6.9
+        uses: JamesIves/github-pages-deploy-action@v4.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
