@@ -26,46 +26,89 @@
 <link href="../../../styles/prism.css" rel="Stylesheet">
 <link href="../../../styles/logo-styles.css" rel="Stylesheet">
 <link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
 <script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
 <script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
 <script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
 <script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
 <script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer="defer"></script>
 <script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
 </head>
 <body>
     <div class="root">
-<nav class="navigation" id="navigation-wrapper">
-    <div class="navigation--inner">
-        <div class="navigation-title">
-            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
-            <div class="library-name">
-                    <a class="library-name--link" href="../../../index.html">
-                            ktor-openapi-generator
-                    </a>
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+            <a class="library-name--link" href="../../../index.html">
+                    ktor-openapi-generator
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+1.0.66        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active=""
+                        data-filter=":dokkaHtml/main">Ktor OpenAPI/Swagger 3 Generator</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":dokkaHtml/main"
+                                       data-filter=":dokkaHtml/main"/>
+                                <span class="checkbox--icon"></span>
+                                Ktor OpenAPI/Swagger 3 Generator
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
             </div>
-            <div class="library-version">
-1.0.63            </div>
         </div>
-        <div class="filter-section" id="filter-section">
-                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter=":dokkaHtml/main">Ktor OpenAPI/Swagger 3 Generator</button>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
         </div>
-    </div>
-    <div class="navigation-controls">
-        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
-        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
-    </div>
-</nav>
+    </nav>
         <div id="container">
             <div class="sidebar" id="leftColumn">
-                <div class="sidebar--inner" id="sideMenu"></div>
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                        data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    ktor-openapi-generator
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
             </div>
             <div id="main">
 <div class="main-content" data-page-type="classlike" id="content" pageIds="ktor-openapi-generator::com.papsign.ktor.openapigen.model.security/FlowsModel///PointingToDeclaration//1495561135">
   <div class="breadcrumbs"><a href="../../../index.html">ktor-openapi-generator</a><span class="delimiter">/</span><a href="../index.html">com.papsign.ktor.openapigen.model.security</a><span class="delimiter">/</span><span class="current">FlowsModel</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Flows</span><wbr></wbr><span><span>Model</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">FlowsModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span>, <a href="../../com.papsign.ktor.openapigen.model/-described/index.html">Described</a><span class="token operator">&gt;</span> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/index.html">MutableMap</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">&gt; </span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/navikt/ktor-openapi-generator/tree/master/src/main/kotlin/com/papsign/ktor/openapigen/model/security/FlowsModel.kt#L9">source</a>)</span></span></div></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">FlowsModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span>, <a href="../../com.papsign.ktor.openapigen.model/-described/index.html">Described</a><span class="token operator">&gt;</span> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-mutable-map/index.html">MutableMap</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">&gt; </span><span class="clearfix"><span class="floating-right">(<a href="https://github.com/navikt/ktor-openapi-generator/tree/master/src/main/kotlin/com/papsign/ktor/openapigen/model/security/FlowsModel.kt#L9">source</a>)</span></span></div></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
@@ -116,7 +159,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-flow-model/index.html">FlowModel</a><span class="token operator">&lt;</span><a href="-flow-model/index.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-flow-model/index.html">T</a><span class="token operator">&gt;</span>, <a href="../../com.papsign.ktor.openapigen.model/-described/index.html">Described</a><span class="token operator">&gt;</span> : <a href="../../com.papsign.ktor.openapigen.model/-data-model/index.html">DataModel</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-flow-model/index.html">FlowModel</a><span class="token operator">&lt;</span><a href="-flow-model/index.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-flow-model/index.html">T</a><span class="token operator">&gt;</span>, <a href="../../com.papsign.ktor.openapigen.model/-described/index.html">Described</a><span class="token operator">&gt;</span> : <a href="../../com.papsign.ktor.openapigen.model/-data-model/index.html">DataModel</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -131,7 +174,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-flow-model-type/index.html">FlowModelType</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-flow-model-type/index.html">FlowsModel.FlowModelType</a><span class="token operator">&gt; </span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">enum </span><a href="-flow-model-type/index.html">FlowModelType</a> : <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-enum/index.html">Enum</a><span class="token operator">&lt;</span><a href="-flow-model-type/index.html">FlowsModel.FlowModelType</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
               </div>
             </div>
@@ -150,7 +193,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="../-security-model/index.html#313986111%2FProperties%2F1495561135">entries</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-set/index.html">MutableSet</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/-mutable-entry/index.html">MutableMap.MutableEntry</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="../-security-model/index.html#313986111%2FProperties%2F1495561135">entries</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-mutable-set/index.html">MutableSet</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-mutable-map/-mutable-entry/index.html">MutableMap.MutableEntry</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -165,7 +208,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="../-security-model/index.html#-1153773961%2FProperties%2F1495561135">keys</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-set/index.html">MutableSet</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="../-security-model/index.html#-1153773961%2FProperties%2F1495561135">keys</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-mutable-set/index.html">MutableSet</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -180,7 +223,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="../-security-model/index.html#-157521630%2FProperties%2F1495561135">size</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="../-security-model/index.html#-157521630%2FProperties%2F1495561135">size</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -195,7 +238,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="../-security-model/index.html#211311497%2FProperties%2F1495561135">values</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-collection/index.html">MutableCollection</a><span class="token operator">&lt;</span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="../-security-model/index.html#211311497%2FProperties%2F1495561135">values</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-mutable-collection/index.html">MutableCollection</a><span class="token operator">&lt;</span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -214,7 +257,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="authorization-code.html"><span class="token function">authorizationCode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scopes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">authorizationUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">tokenUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">refreshUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FlowsModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="authorization-code.html"><span class="token function">authorizationCode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scopes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">authorizationUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">tokenUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">refreshUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FlowsModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -229,7 +272,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../com.papsign.ktor.openapigen/clean-empty-values.html"><span class="token function">cleanEmptyValues</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">serializationSettings<span class="token operator">: </span><a href="../../com.papsign.ktor.openapigen/-serialization-settings/index.html">SerializationSettings</a><span class="token operator"> = </span>SerializationSettings()</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token operator">*</span><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../../com.papsign.ktor.openapigen/clean-empty-values.html"><span class="token function">cleanEmptyValues</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">serializationSettings<span class="token operator">: </span><a href="../../com.papsign.ktor.openapigen/-serialization-settings/index.html">SerializationSettings</a><span class="token operator"> = </span>SerializationSettings()</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token operator">*</span><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -259,52 +302,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="client-credentials.html"><span class="token function">clientCredentials</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scopes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">tokenUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">refreshUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FlowsModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="-1187617092%2FFunctions%2F1495561135" anchor-label="compute" id="-1187617092%2FFunctions%2F1495561135" data-filterable-set=":dokkaHtml/main"></a>
-          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="index.html#-1187617092%2FFunctions%2F1495561135"><span><span>compute</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1187617092%2FFunctions%2F1495561135"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1187617092%2FFunctions%2F1495561135"><span class="token function">compute</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p0<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">p1<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html">BiFunction</a><span class="token operator">&lt;</span><span class="token keyword">in </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token keyword">in </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">?</span></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="-1696322497%2FFunctions%2F1495561135" anchor-label="computeIfAbsent" id="-1696322497%2FFunctions%2F1495561135" data-filterable-set=":dokkaHtml/main"></a>
-          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="index.html#-1696322497%2FFunctions%2F1495561135"><span>compute</span><wbr></wbr><span>If</span><wbr></wbr><span><span>Absent</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1696322497%2FFunctions%2F1495561135"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1696322497%2FFunctions%2F1495561135"><span class="token function">computeIfAbsent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p0<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">p1<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/Function.html">Function</a><span class="token operator">&lt;</span><span class="token keyword">in </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="-1875699411%2FFunctions%2F1495561135" anchor-label="computeIfPresent" id="-1875699411%2FFunctions%2F1495561135" data-filterable-set=":dokkaHtml/main"></a>
-          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="index.html#-1875699411%2FFunctions%2F1495561135"><span>compute</span><wbr></wbr><span>If</span><wbr></wbr><span><span>Present</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1875699411%2FFunctions%2F1495561135"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1875699411%2FFunctions%2F1495561135"><span class="token function">computeIfPresent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p0<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">p1<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html">BiFunction</a><span class="token operator">&lt;</span><span class="token keyword">in </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token keyword">in </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">?</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="client-credentials.html"><span class="token function">clientCredentials</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scopes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">tokenUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">refreshUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FlowsModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -319,7 +317,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../-security-model/index.html#182506349%2FFunctions%2F1495561135"><span class="token function">containsKey</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../-security-model/index.html#182506349%2FFunctions%2F1495561135"><span class="token function">containsKey</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -334,7 +332,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.papsign.ktor.openapigen/contains-key.html">T</a><span class="token operator">&gt; </span><a href="../../com.papsign.ktor.openapigen/-schema-map/index.html">SchemaMap</a><span class="token punctuation">.</span><a href="../../com.papsign.ktor.openapigen/contains-key.html"><span class="token function">containsKey</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../../com.papsign.ktor.openapigen/contains-key.html">T</a><span class="token operator">&gt; </span><a href="../../com.papsign.ktor.openapigen/-schema-map/index.html">SchemaMap</a><span class="token punctuation">.</span><a href="../../com.papsign.ktor.openapigen/contains-key.html"><span class="token function">containsKey</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -349,22 +347,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="index.html#890333385%2FFunctions%2F1495561135"><span class="token function">containsValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="1301104362%2FFunctions%2F1495561135" anchor-label="forEach" id="1301104362%2FFunctions%2F1495561135" data-filterable-set=":dokkaHtml/main"></a>
-          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="index.html#1301104362%2FFunctions%2F1495561135"><span>for</span><wbr></wbr><span><span>Each</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1301104362%2FFunctions%2F1495561135"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1301104362%2FFunctions%2F1495561135"><span class="token function">forEach</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p0<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiConsumer.html">BiConsumer</a><span class="token operator">&lt;</span><span class="token keyword">in </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token keyword">in </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="index.html#890333385%2FFunctions%2F1495561135"><span class="token function">containsValue</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -379,7 +362,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">operator override </span><span class="token keyword">fun </span><a href="../-security-model/index.html#-1885167485%2FFunctions%2F1495561135"><span class="token function">get</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">?</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">operator override </span><span class="token keyword">fun </span><a href="../-security-model/index.html#-1885167485%2FFunctions%2F1495561135"><span class="token function">get</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">?</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -399,21 +382,6 @@
               </div>
             </div>
           </div>
-<a data-name="-792752006%2FFunctions%2F1495561135" anchor-label="getOrDefault" id="-792752006%2FFunctions%2F1495561135" data-filterable-set=":dokkaHtml/main"></a>
-          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="index.html#-792752006%2FFunctions%2F1495561135"><span>get</span><wbr></wbr><span>Or</span><wbr></wbr><span><span>Default</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-792752006%2FFunctions%2F1495561135"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-792752006%2FFunctions%2F1495561135"><span class="token function">getOrDefault</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">defaultValue<span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
 <a data-name="-1490516192%2FFunctions%2F1495561135" anchor-label="implicit" id="-1490516192%2FFunctions%2F1495561135" data-filterable-set=":dokkaHtml/main"></a>
           <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
             <div class="main-subrow keyValue ">
@@ -424,7 +392,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="implicit.html"><span class="token function">implicit</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scopes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">authorizationUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">refreshUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FlowsModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="implicit.html"><span class="token function">implicit</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scopes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">authorizationUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">refreshUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FlowsModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -439,22 +407,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../-security-model/index.html#-1708477740%2FFunctions%2F1495561135"><span class="token function">isEmpty</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="1846046089%2FFunctions%2F1495561135" anchor-label="merge" id="1846046089%2FFunctions%2F1495561135" data-filterable-set=":dokkaHtml/main"></a>
-          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="index.html#1846046089%2FFunctions%2F1495561135"><span><span>merge</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1846046089%2FFunctions%2F1495561135"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#1846046089%2FFunctions%2F1495561135"><span class="token function">merge</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p0<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">p1<span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">p2<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html">BiFunction</a><span class="token operator">&lt;</span><span class="token keyword">in </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword">in </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">?</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">?</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../-security-model/index.html#-1708477740%2FFunctions%2F1495561135"><span class="token function">isEmpty</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
                 </div>
               </div>
             </div>
@@ -469,7 +422,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="password.html"><span class="token function">password</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scopes<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">tokenUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">refreshUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FlowsModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="password.html"><span class="token function">password</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scopes<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">tokenUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">refreshUrl<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FlowsModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -484,7 +437,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="index.html#2017672319%2FFunctions%2F1495561135"><span class="token function">put</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">?</span></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="index.html#2017672319%2FFunctions%2F1495561135"><span class="token function">put</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">?</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -514,37 +467,7 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="index.html#1343521867%2FFunctions%2F1495561135"><span class="token function">putAll</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">from<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="-1346201111%2FFunctions%2F1495561135" anchor-label="putIfAbsent" id="-1346201111%2FFunctions%2F1495561135" data-filterable-set=":dokkaHtml/main"></a>
-          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="index.html#-1346201111%2FFunctions%2F1495561135"><span>put</span><wbr></wbr><span>If</span><wbr></wbr><span><span>Absent</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1346201111%2FFunctions%2F1495561135"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1346201111%2FFunctions%2F1495561135"><span class="token function">putIfAbsent</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p0<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">p1<span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">?</span></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="620547703%2FFunctions%2F1495561135" anchor-label="remove" id="620547703%2FFunctions%2F1495561135" data-filterable-set=":dokkaHtml/main"></a>
-          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="../-security-model/index.html#-2016920067%2FFunctions%2F1495561135"><span><span>remove</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="620547703%2FFunctions%2F1495561135"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="../-security-model/index.html#-2016920067%2FFunctions%2F1495561135"><span class="token function">remove</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">?</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-1207175930%2FFunctions%2F1495561135"><span class="token function">remove</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">key<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">value<span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="index.html#1343521867%2FFunctions%2F1495561135"><span class="token function">putAll</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">from<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
@@ -564,46 +487,21 @@
               </div>
             </div>
           </div>
-<a data-name="-876257705%2FFunctions%2F1495561135" anchor-label="replace" id="-876257705%2FFunctions%2F1495561135" data-filterable-set=":dokkaHtml/main"></a>
-          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="index.html#-2080408006%2FFunctions%2F1495561135"><span><span>replace</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-876257705%2FFunctions%2F1495561135"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-2080408006%2FFunctions%2F1495561135"><span class="token function">replace</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p0<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">p1<span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">?</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#398878313%2FFunctions%2F1495561135"><span class="token function">replace</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p0<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">p1<span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">p2<span class="token operator">: </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-<a data-name="-95262439%2FFunctions%2F1495561135" anchor-label="replaceAll" id="-95262439%2FFunctions%2F1495561135" data-filterable-set=":dokkaHtml/main"></a>
-          <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-            <div class="main-subrow keyValue ">
-              <div class=""><span class="inline-flex">
-                  <div><a href="index.html#-95262439%2FFunctions%2F1495561135"><span>replace</span><wbr></wbr><span><span>All</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-95262439%2FFunctions%2F1495561135"></span>
-                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                  </span></span></div>
-              <div>
-                <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="index.html#-95262439%2FFunctions%2F1495561135"><span class="token function">replaceAll</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">p0<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/BiFunction.html">BiFunction</a><span class="token operator">&lt;</span><span class="token keyword">in </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span class="token keyword">in </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword">out </span><a href="-flow-model/index.html">FlowsModel.FlowModel</a><span class="token operator">&lt;</span><a href="index.html">TScope</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-      <div class="footer">
-        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2024 Copyright</span><span
-                class="pull-right"><span>Generated by </span><a
-                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
-      </div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2024 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
             </div>
         </div>
     </div>
