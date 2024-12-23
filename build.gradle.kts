@@ -5,7 +5,6 @@ import java.net.URL
 
 plugins {
     kotlin("jvm") version "2.1.0"
-
     `maven-publish`
     signing
     id("net.nemerosa.versioning") version "3.1.0"
@@ -14,7 +13,7 @@ plugins {
 
 group = "no.nav"
 base.archivesName.set("ktor-open-api")
-version = project.findProperty("version")?.toString() ?: "1.0.0-" + getCheckedOutGitCommitHash()
+version = project.findProperty("version")?.toString() ?: ("1.0.0-" + getCheckedOutGitCommitHash())
 
 repositories {
     mavenCentral()
@@ -90,7 +89,7 @@ tasks {
     }
 
     dokkaHtml {
-        outputDirectory.set(File("$buildDir/docs"))
+        outputDirectory.set(File("$layout.buildDirectory/docs"))
 
         dokkaSourceSets {
             configureEach {
