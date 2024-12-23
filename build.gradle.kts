@@ -87,20 +87,18 @@ tasks {
         useJUnitPlatform()
         maxParallelForks = Runtime.getRuntime().availableProcessors()
     }
+}
 
-    dokkaHtml {
-        outputDirectory.set(File("$layout.buildDirectory/docs"))
-
-        dokkaSourceSets {
-            configureEach {
-                displayName.set("Ktor OpenAPI/Swagger 3 Generator")
-
-                sourceLink {
-                    localDirectory.set(file("src/main/kotlin"))
-                    remoteUrl.set(URL("https://github.com/navikt/ktor-openapi-generator/tree/master/src/main/kotlin"))
-                    remoteLineSuffix.set("#L")
-                }
-            }
+dokka {
+    moduleName.set("Ktor OpenAPI/Swagger 3 Generator")
+    dokkaPublications.html {
+        outputDirectory.set(layout.buildDirectory.dir("docs"))
+    }
+    dokkaSourceSets.main {
+        sourceLink {
+            localDirectory.set(file("src/main/kotlin"))
+            remoteUrl("https://github.com/navikt/ktor-openapi-generator/tree/master/src/main/kotlin")
+            remoteLineSuffix.set("#L")
         }
     }
 }

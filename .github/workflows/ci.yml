@@ -43,7 +43,7 @@ jobs:
 
       - id: notes
         run: |
-          randomDelimiter=${RANDOM}
+          randomDeliHmiter=${RANDOM}
           text=$(git --no-pager log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"%h %s" | sed ':a;N;$!ba;s/\n/\n\n/g')
           echo 'CHANGELOG<<$randomDelimiter' >> $GITHUB_OUTPUT
           echo -e "$text" >> $GITHUB_OUTPUT
@@ -66,11 +66,9 @@ jobs:
             ${{ steps.notes.outputs.CHANGELOG }}
 
       - name: Generate API documentation
-        run: gradle -Pversion=${{ steps.tag.outputs.version }} dokkaHtml
+        run: gradle -Pversion=${{ steps.tag.outputs.version }} :dokkaGenerate
 
       - name: Deploy API documentation to Github Pages
         uses: JamesIves/github-pages-deploy-action@v4.7.2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages
-          FOLDER: build/docs
+          folder: build/docs
