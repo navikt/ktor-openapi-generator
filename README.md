@@ -80,7 +80,6 @@ Extra Features:
 
 - Includes Swagger-UI (enabled by default, can be managed in the `install(OpenAPIGen) { ... }` section)
 
-
 ## Examples
 
 Take a look at [a few examples](https://github.com/papsign/Ktor-OpenAPI-Generator/wiki/A-few-examples)
