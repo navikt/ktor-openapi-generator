@@ -18,7 +18,7 @@ object SwaggerUIVersion {
             version = properties.getProperty("version")
         } else {
             log.warn("Klarte ikke hente versjon på swagger UI via avhengigheten")
-            version = "5.18.2"
+            version = "5.18.3"
         }
     }
 }
