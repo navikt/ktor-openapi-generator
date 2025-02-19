@@ -69,6 +69,6 @@ jobs:
         run: gradle -Pversion=${{ steps.tag.outputs.version }} :dokkaGenerate
 
       - name: Deploy API documentation to Github Pages
-        uses: JamesIves/github-pages-deploy-action@v4.7.2
+        uses: JamesIves/github-pages-deploy-action@v4.7.3
         with:
           folder: build/docs
