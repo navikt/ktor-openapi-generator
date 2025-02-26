@@ -69,7 +69,7 @@ dependencies {
     testImplementation(kotlin("test"))
     testImplementation(kotlin("stdlib-jdk8"))
 
-    testImplementation("ch.qos.logback:logback-classic:1.5.16") // logging framework for the tests
+    testImplementation("ch.qos.logback:logback-classic:1.5.17") // logging framework for the tests
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.12.0") // junit testing framework
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.12.0") // generated parameters for tests
