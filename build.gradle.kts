@@ -48,7 +48,7 @@ dependencies {
     implementation("io.ktor:ktor-server-content-negotiation:$ktorVersion")
     implementation("io.ktor:ktor-server-status-pages:$ktorVersion")
 
-    implementation("org.slf4j:slf4j-api:2.0.16")
+    implementation("org.slf4j:slf4j-api:2.0.17")
 
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.2") // needed for multipart parsing
     // when updating version here, don't forge to update version in OpenAPIGen.kt line 68
