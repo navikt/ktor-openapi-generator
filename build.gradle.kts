@@ -1,4 +1,5 @@
 import org.gradle.jvm.tasks.Jar
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.io.ByteArrayOutputStream
 import java.net.URL
 
@@ -77,10 +78,14 @@ dependencies {
 }
 
 kotlin {
+    jvmToolchain(21)
     compilerOptions {
+        jvmTarget.set(JvmTarget.JVM_21)
         apiVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0)
     }
 }
+
+
 tasks {
     withType<Test> {
         reports.html.required.set(false)
