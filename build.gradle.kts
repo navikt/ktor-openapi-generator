@@ -20,14 +20,12 @@ repositories {
     mavenCentral()
 }
 
-
 fun runCommand(command: String): String {
-    val byteOut = ByteArrayOutputStream()
-    project.exec {
-        commandLine = command.split("\\s".toRegex())
-        standardOutput = byteOut
-    }
-    return String(byteOut.toByteArray()).trim()
+    val execResult = providers.exec {
+        commandLine(command.split("\\s".toRegex()))
+    }.standardOutput.asText
+
+    return execResult.get()
 }
 
 fun getCheckedOutGitCommitHash(): String {
@@ -39,6 +37,8 @@ fun getCheckedOutGitCommitHash(): String {
 
 val ktorVersion = "3.1.1"
 val swaggerUiVersion = "5.20.0"
+val junitVersjon = "5.12.1"
+
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
@@ -52,7 +52,7 @@ dependencies {
     implementation("org.slf4j:slf4j-api:2.0.17")
 
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.3") // needed for multipart parsing
-    // when updating version here, don't forge to update version in OpenAPIGen.kt line 68
+    // when updating the version here, don't forge to update version in OpenAPIGen.kt line 68
     api("org.webjars:swagger-ui:$swaggerUiVersion")
 
     implementation("org.reflections:reflections:0.10.2") // only used while initializing
@@ -72,9 +72,9 @@ dependencies {
 
     testImplementation("ch.qos.logback:logback-classic:1.5.17") // logging framework for the tests
 
-    testImplementation("org.junit.jupiter:junit-jupiter-api:5.12.1") // junit testing framework
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.12.0") // generated parameters for tests
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.12.1") // testing runtime
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersjon") // junit testing framework
+    testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersjon") // generated parameters for tests
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersjon") // testing runtime
 }
 
 kotlin {
@@ -110,15 +110,15 @@ dokka {
 
 // ------------------------------------ Deployment Configuration  ------------------------------------
 // deployment configuration - deploy with sources and documentation
-val sourcesJar by tasks.creating(Jar::class) {
+val sourcesJar by tasks.registering(Jar::class, fun Jar.() {
     archiveClassifier.set("sources")
     from(sourceSets.main.get().allSource)
-}
+})
 
-val javadocJar by tasks.creating(Jar::class) {
+val javadocJar by tasks.registering(Jar::class, fun Jar.() {
     archiveClassifier.set("javadoc")
     from(tasks.javadoc)
-}
+})
 
 // name the publication as it is referenced
 val publication = "mavenJava"
