@@ -37,17 +37,6 @@ fun getCheckedOutGitCommitHash(): String {
 
 val ktorVersion = "3.1.2"
 val swaggerUiVersion = "5.20.7"
-
-// Generate a properties file with the Swagger UI version
-tasks.register("generateVersionProperties") {
-    val propertiesFile = file("${projectDir}/src/main/resources/version.properties")
-    propertiesFile.parentFile.mkdirs()
-    propertiesFile.writeText("swagger.ui.version=$swaggerUiVersion")
-}
-
-tasks.named("processResources") {
-    dependsOn("generateVersionProperties")
-}
 val junitVersjon = "5.12.2"
 
 dependencies {
