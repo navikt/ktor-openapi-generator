@@ -5,7 +5,7 @@ import java.net.URL
 
 
 plugins {
-    kotlin("jvm") version "2.1.20"
+    kotlin("jvm") version "2.1.21"
     `maven-publish`
     signing
     id("net.nemerosa.versioning") version "3.1.0"
