@@ -77,12 +77,12 @@ object DefaultPrimitiveSchemaProvider: SchemaBuilderProviderModule, OpenAPIGenMo
         Builder<LocalDate>(
             DataType.string,
             DataFormat.date,
-            example = LocalDate.now()
+            example = LocalDate.of(2025, 4, 1)
         ),
         Builder<LocalTime>(
             DataType.string,
             pattern = "HH:mm:ss",
-            example = LocalTime.now()
+            example = LocalTime.of(11, 30, 0)
         ),
         Builder<OffsetTime>(
             DataType.string,
@@ -92,7 +92,7 @@ object DefaultPrimitiveSchemaProvider: SchemaBuilderProviderModule, OpenAPIGenMo
         Builder<LocalDateTime>(
             DataType.string,
             DataFormat.`date-time`,
-            example = LocalDateTime.now()
+            example = LocalDateTime.of(2025, 4, 1, 12, 30, 0)
         ),
         Builder<OffsetDateTime>(
             DataType.string,
