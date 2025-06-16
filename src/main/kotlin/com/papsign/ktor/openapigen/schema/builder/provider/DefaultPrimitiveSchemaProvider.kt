@@ -17,10 +17,18 @@ import java.time.*
 import java.util.*
 import kotlin.reflect.KType
 
-object DefaultPrimitiveSchemaProvider: SchemaBuilderProviderModule, OpenAPIGenModuleExtension, DefaultOpenAPIModule {
+object DefaultPrimitiveSchemaProvider : SchemaBuilderProviderModule, OpenAPIGenModuleExtension,
+    DefaultOpenAPIModule {
 
-    private data class Builder(override val superType: KType, private val model: SchemaModel.SchemaModelLitteral<*>) : SchemaBuilder {
-        override fun build(type: KType, builder: FinalSchemaBuilder, finalize: (SchemaModel<*>)->SchemaModel<*>): SchemaModel<*> {
+    private data class Builder(
+        override val superType: KType,
+        private val model: SchemaModel.SchemaModelLitteral<*>
+    ) : SchemaBuilder {
+        override fun build(
+            type: KType,
+            builder: FinalSchemaBuilder,
+            finalize: (SchemaModel<*>) -> SchemaModel<*>
+        ): SchemaModel<*> {
             checkType(type)
             return finalize(model.copy(nullable = type.isMarkedNullable))
         }
@@ -33,9 +41,19 @@ object DefaultPrimitiveSchemaProvider: SchemaBuilderProviderModule, OpenAPIGenMo
                 )
             }
 
-            inline operator fun <reified T> invoke(type: DataType, format: DataFormat? = null, pattern: String? = null, example: T? = null): Builder {
+            inline operator fun <reified T> invoke(
+                type: DataType,
+                format: DataFormat? = null,
+                pattern: String? = null,
+                example: T? = null
+            ): Builder {
                 return Builder(
-                    SchemaModel.SchemaModelLitteral<T>(type, format, pattern = pattern, example = example)
+                    SchemaModel.SchemaModelLitteral<T>(
+                        type,
+                        format,
+                        pattern = pattern,
+                        example = example
+                    )
                 )
             }
         }
@@ -102,7 +120,10 @@ object DefaultPrimitiveSchemaProvider: SchemaBuilderProviderModule, OpenAPIGenMo
         Builder<ZonedDateTime>(
             DataType.string,
             DataFormat.`date-time`,
-            example = ZonedDateTime.now()
+            example = ZonedDateTime.of(
+                LocalDateTime.of(2025, 4, 1, 12, 30, 0),
+                ZoneId.systemDefault()
+            )
         ),
         Builder<Instant>(
             DataType.string,
