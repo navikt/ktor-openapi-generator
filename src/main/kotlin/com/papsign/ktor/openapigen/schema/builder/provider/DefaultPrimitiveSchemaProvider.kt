@@ -59,6 +59,10 @@ object DefaultPrimitiveSchemaProvider : SchemaBuilderProviderModule, OpenAPIGenM
         }
     }
 
+    val førsteApril = ZonedDateTime.of(
+        LocalDateTime.of(2025, 4, 1, 12, 30, 0),
+        ZoneId.systemDefault()
+    )
     private val builders = listOf(
         Builder<Boolean>(
             DataType.boolean
@@ -115,24 +119,22 @@ object DefaultPrimitiveSchemaProvider : SchemaBuilderProviderModule, OpenAPIGenM
         Builder<OffsetDateTime>(
             DataType.string,
             DataFormat.`date-time`,
-            example = OffsetDateTime.now()
+            example = OffsetDateTime.of(2025, 4, 1, 12, 30, 0, 0, ZoneOffset.UTC)
         ),
         Builder<ZonedDateTime>(
             DataType.string,
             DataFormat.`date-time`,
-            example = ZonedDateTime.of(
-                LocalDateTime.of(2025, 4, 1, 12, 30, 0),
-                ZoneId.systemDefault()
-            )
+            example = førsteApril
         ),
         Builder<Instant>(
             DataType.string,
             DataFormat.`date-time`,
-            example = Instant.now()
+            example = førsteApril.toInstant()
         ),
         Builder<Date>(
             DataType.string,
-            DataFormat.`date-time`
+            DataFormat.`date-time`,
+            example = Date.from(førsteApril.toInstant())
         ),
         Builder<ByteArray>(
             DataType.string,
