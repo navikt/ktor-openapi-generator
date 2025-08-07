@@ -73,7 +73,7 @@ class BinaryContentTypeParserTest {
             }
             setBody(bytes)
         }.let {
-            Assertions.assertEquals(HttpStatusCode.BadRequest, it.status)
+            Assertions.assertEquals(HttpStatusCode.NotAcceptable, it.status)
         }
     }
 
