@@ -7,6 +7,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    concurrency: publishing-ci
     permissions:
       packages: write
       contents: write

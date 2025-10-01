@@ -39,7 +39,7 @@ class BinaryContentTypeParserTest {
             setBody(bytes)
         }.let {
             Assertions.assertEquals(ContentType.parse(contentType), it.contentType())
-            Assertions.assertArrayEquals(bytes, it.readBytes())
+            Assertions.assertArrayEquals(bytes, it.readRawBytes())
         }
     }
 
@@ -128,7 +128,7 @@ class BinaryContentTypeParserTest {
                 }
             }
             route("forbidden") {
-                post<Unit, Stream, Stream> { _, body ->
+                post<Unit, Stream, Stream> { _, _ ->
                     respondWithStatus(HttpStatusCode.Forbidden)
                 }
             }

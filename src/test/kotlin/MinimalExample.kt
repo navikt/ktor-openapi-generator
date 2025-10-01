@@ -11,10 +11,9 @@ import com.papsign.ktor.openapigen.route.response.respond
 import com.papsign.ktor.openapigen.route.response.respondWithStatus
 import com.papsign.ktor.openapigen.route.route
 import io.ktor.http.*
-import io.ktor.serialization.jackson.jackson
-import io.ktor.server.application.Application
-import io.ktor.server.application.install
-import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.serialization.jackson.*
+import io.ktor.server.application.*
+import io.ktor.server.plugins.contentnegotiation.*
 import java.io.InputStream
 
 /**
@@ -73,7 +72,7 @@ fun Application.minimalExample() {
 @BinaryResponse(contentTypes = ["application/pdf"])
 data class DokumentResponsDTO(val stream: InputStream)
 
-data class SomeParams(@PathParam("who to say hello") val name: String)
+data class SomeParams(@param:PathParam("who to say hello") val name: String)
 data class SomeRequest(val foo: String)
 data class SomeResponse(val bar: String)
 
@@ -83,7 +82,7 @@ enum class SomeSimpleEnum {
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 enum class SomeComplexEnum(
-    @JsonProperty("proppen") val variable: String,
+    @param:JsonProperty("proppen") val variable: String,
 ) {
     A("a"), B("b"), C("c")
 }

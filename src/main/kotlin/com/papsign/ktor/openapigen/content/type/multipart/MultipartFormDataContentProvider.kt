@@ -18,6 +18,7 @@ import io.ktor.http.content.streamProvider
 import io.ktor.server.request.receiveMultipart
 import io.ktor.server.routing.RoutingContext
 import io.ktor.util.asStream
+import io.ktor.utils.io.jvm.javaio.toInputStream
 import java.io.InputStream
 import java.time.Instant
 import kotlin.reflect.KClass
@@ -77,7 +78,7 @@ object MultipartFormDataContentProvider : BodyParser, OpenAPIGenModuleExtension 
                         objectMap[name] = it.value
                     }
                     is PartData.FileItem -> {
-                        objectMap[name] = NamedFileInputStream(it.originalFileName, it.contentType, it.streamProvider())
+                        objectMap[name] = NamedFileInputStream(it.originalFileName, it.contentType, it.provider().toInputStream())
                     }
                     is PartData.BinaryItem -> {
                         objectMap[name] = ContentInputStream(it.contentType, it.provider().asStream())

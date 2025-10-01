@@ -8,15 +8,16 @@ import com.papsign.ktor.openapigen.exceptions.OpenAPIRequiredFieldException
 import com.papsign.ktor.openapigen.route.apiRouting
 import com.papsign.ktor.openapigen.route.path.normal.get
 import com.papsign.ktor.openapigen.route.response.respond
-import io.ktor.client.request.get
-import io.ktor.client.statement.bodyAsText
+import io.ktor.client.request.*
+import io.ktor.client.statement.*
 import io.ktor.http.*
-import io.ktor.server.application.Application
-import io.ktor.server.application.install
-import io.ktor.server.plugins.statuspages.StatusPages
-import io.ktor.server.response.respond
+import io.ktor.server.application.*
+import io.ktor.server.plugins.statuspages.*
+import io.ktor.server.response.*
 import io.ktor.server.testing.*
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 @StrictEnumParsing
 enum class StrictTestEnum {
@@ -25,10 +26,10 @@ enum class StrictTestEnum {
 }
 
 @Path("/")
-data class NullableStrictEnumParams(@QueryParam("") val type: StrictTestEnum? = null)
+data class NullableStrictEnumParams(@param:QueryParam("") val type: StrictTestEnum? = null)
 
 @Path("/")
-data class NonNullableStrictEnumParams(@QueryParam("") val type: StrictTestEnum)
+data class NonNullableStrictEnumParams(@param:QueryParam("") val type: StrictTestEnum)
 
 class EnumStrictTestServer {
 
@@ -44,7 +45,7 @@ class EnumStrictTestServer {
             apiRouting {
                 get<NullableStrictEnumParams, String> { params ->
                     if (params.type != null)
-                        assertTrue { StrictTestEnum.values().contains(params.type) }
+                        assertTrue { StrictTestEnum.entries.toTypedArray().contains(params.type) }
                     respond(params.type?.toString() ?: "null")
                 }
             }
@@ -63,7 +64,7 @@ class EnumStrictTestServer {
             }
             apiRouting {
                 get<NonNullableStrictEnumParams, String> { params ->
-                    assertTrue { StrictTestEnum.values().contains(params.type) }
+                    assertTrue { StrictTestEnum.entries.toTypedArray().contains(params.type) }
                     respond(params.type.toString())
                 }
             }

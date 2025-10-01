@@ -361,12 +361,12 @@ object TestServer {
     class CustomException : Exception()
 
     @Path("string/{a}")
-    data class StringParam(@PathParam("A simple String Param") val a: String)
+    data class StringParam(@param:PathParam("A simple String Param") val a: String)
 
     @Response("A String Response")
-    data class StringResponse(@Description("The string value") val str: String)
+    data class StringResponse(@param:Description("The string value") val str: String)
 
-    data class NameParam(@HeaderParam("A simple Header Param") @OpenAPIName("X-NAME") val name: String)
+    data class NameParam(@param:HeaderParam("A simple Header Param") @OpenAPIName("X-NAME") val name: String)
 
     @Response("A Response for header param example")
     data class NameGreetingResponse(@StringExample("Hi, John!") val str: String)
@@ -395,7 +395,7 @@ object TestServer {
     data class StringUsable(val str: String)
 
     @Path("{a}")
-    data class LongParam(@PathParam("A simple Long Param") val a: Long)
+    data class LongParam(@param:PathParam("A simple Long Param") val a: Long)
 
     @Response("A Long Response")
     data class LongResponse(val str: Long)
@@ -412,15 +412,15 @@ object TestServer {
 
 
     @Request("A LocalDate Request")
-    data class LocalDateQuery(@QueryParam("LocalDate") val date: LocalDate)
-    data class LocalDateOptionalQuery(@QueryParam("LocalDate") val date: LocalDate?)
-    data class LocalDateTimeQuery(@QueryParam("LocalDateTime") val date: LocalDateTime)
-    data class OffsetDateTimeQuery(@QueryParam("OffsetDateTime") val date: OffsetDateTime)
-    data class ZonedDateTimeQuery(@QueryParam("OffsetDateTime") val date: ZonedDateTime)
-    data class InstantQuery(@QueryParam("Instant") val date: Instant)
+    data class LocalDateQuery(@param:QueryParam("LocalDate") val date: LocalDate)
+    data class LocalDateOptionalQuery(@param:QueryParam("LocalDate") val date: LocalDate?)
+    data class LocalDateTimeQuery(@param:QueryParam("LocalDateTime") val date: LocalDateTime)
+    data class OffsetDateTimeQuery(@param:QueryParam("OffsetDateTime") val date: OffsetDateTime)
+    data class ZonedDateTimeQuery(@param:QueryParam("OffsetDateTime") val date: ZonedDateTime)
+    data class InstantQuery(@param:QueryParam("Instant") val date: Instant)
 
-    data class LocalTimeQuery(@QueryParam("LocalTime") val time: LocalTime)
-    data class OffsetTimeQuery(@QueryParam("OffsetTime") val time: OffsetTime)
+    data class LocalTimeQuery(@param:QueryParam("LocalTime") val time: LocalTime)
+    data class OffsetTimeQuery(@param:QueryParam("OffsetTime") val time: OffsetTime)
 
     data class LocalDateResponse(val date: LocalDate?)
     data class LocalDateTimeResponse(val date: LocalDateTime?)
@@ -431,49 +431,49 @@ object TestServer {
     data class OffsetTimeResponse(val time: OffsetTime?)
 
     data class FilterQuery(
-        @QueryParam("Vendor Code") @Trim
+        @param:QueryParam("Vendor Code") @Trim
         val vendorCode: String? = null,
-        @QueryParam("Organization") @Trim
+        @param:QueryParam("Organization") @Trim
         val organization: String? = null,
-        @QueryParam("startDate")
+        @param:QueryParam("startDate")
         val startDate: LocalDate? = null,
-        @QueryParam("endDate")
+        @param:QueryParam("endDate")
         val endDate: LocalDate? = null,
-        @QueryParam("tenant") @Trim
+        @param:QueryParam("tenant") @Trim
         val tenant: String? = null,
-        @QueryParam("manager") @Trim
+        @param:QueryParam("manager") @Trim
         val manager: String? = null,
-        @QueryParam("performer") @Trim
+        @param:QueryParam("performer") @Trim
         val performer: String? = null,
-        @QueryParam("condition") @Trim
+        @param:QueryParam("condition") @Trim
         val condition: String? = null,
-        @QueryParam("onlyNew")
+        @param:QueryParam("onlyNew")
         val onlyNew: Boolean? = null,
-        @QueryParam("name") @Trim
+        @param:QueryParam("name") @Trim
         val name: String? = null,
-        @QueryParam("minQuantity") @Min(0)
+        @param:QueryParam("minQuantity") @Min(0)
         val minQuantity: Int? = null,
-        @QueryParam("maxQuantity") @Min(0)
+        @param:QueryParam("maxQuantity") @Min(0)
         val maxQuantity: Int? = null,
-        @QueryParam("minCost") @Min(0)
+        @param:QueryParam("minCost") @Min(0)
         val minCost: Int? = null,
-        @QueryParam("maxCost") @Min(0)
+        @param:QueryParam("maxCost") @Min(0)
         val maxCost: Int? = null,
-        @QueryParam("inStock")
+        @param:QueryParam("inStock")
         val inStock: Boolean? = null,
-        @QueryParam("active")
+        @param:QueryParam("active")
         val active: Boolean? = null,
 
-        @QueryParam("employeeName") @Trim
+        @param:QueryParam("employeeName") @Trim
         val employeeName: String? = null,
 
-        @QueryParam("sortToken")
+        @param:QueryParam("sortToken")
         @StringExample("fullName") @Trim
         val sortToken: String? = null,
-        @QueryParam("pageSize")
+        @param:QueryParam("pageSize")
         @Min(1)
         val pageSize: Int? = null,
-        @QueryParam("page")
+        @param:QueryParam("page")
         @Min(0)
         val page: Long? = 0
     )

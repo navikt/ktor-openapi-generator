@@ -145,16 +145,16 @@ object TestServerWithJwtAuth {
     }
 
     @Path("string/{a}")
-    data class StringParam(@PathParam("A simple String Param") val a: String)
+    data class StringParam(@param:PathParam("A simple String Param") val a: String)
 
     @Response("A String Response")
-    data class StringResponse(@Description("The string value") val str: String)
+    data class StringResponse(@param:Description("The string value") val str: String)
 
     val authProvider = JwtProvider();
 
     inline fun NormalOpenAPIRoute.auth(route: OpenAPIAuthenticatedRoute<UserPrincipal>.() -> Unit): OpenAPIAuthenticatedRoute<UserPrincipal> {
         val authenticatedKtorRoute = this.ktorRoute.authenticate { }
-        var openAPIAuthenticatedRoute =
+        val openAPIAuthenticatedRoute =
             OpenAPIAuthenticatedRoute(authenticatedKtorRoute, this.provider.child(), authProvider = authProvider);
         return openAPIAuthenticatedRoute.apply {
             route()
@@ -173,7 +173,7 @@ object TestServerWithJwtAuth {
                             scheme = HttpSecurityScheme.bearer,
                             bearerFormat = "JWT",
                             referenceName = "jwtAuth",
-                        ), emptyList<Scopes>()
+                        ), emptyList()
                     ),
                     AuthProvider.Security(
                         SecuritySchemeModel(

@@ -22,7 +22,7 @@ import kotlin.test.assertTrue
 
 class GenericsTest {
 
-    data class TestHeaderParams(@HeaderParam("test param") val `Test-Header`: MutableList<Long>)
+    data class TestHeaderParams(@param:HeaderParam("test param") val `Test-Header`: MutableList<Long>)
 
     @Test
     fun testTypedMap() {

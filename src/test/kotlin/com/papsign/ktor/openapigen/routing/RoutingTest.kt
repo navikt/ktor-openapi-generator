@@ -25,8 +25,8 @@ import kotlin.test.assertTrue
 
 class RoutingTest {
 
-    data class TestHeaderParams(@HeaderParam("test param") val `Test-Header`: Long)
-    data class TestHeaderParams2(@HeaderParam("test param") val `test-header`: Long)
+    data class TestHeaderParams(@param:HeaderParam("test param") val `Test-Header`: Long)
+    data class TestHeaderParams2(@param:HeaderParam("test param") val `test-header`: Long)
     data class TestBodyParams(val xyz: Long)
     data class TestResponse(val msg: String)
 

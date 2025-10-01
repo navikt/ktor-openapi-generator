@@ -4,7 +4,6 @@ import com.papsign.ktor.openapigen.annotations.Request
 import com.papsign.ktor.openapigen.annotations.Response
 import com.papsign.ktor.openapigen.annotations.parameters.PathParam
 import com.papsign.ktor.openapigen.annotations.parameters.QueryParam
-import com.papsign.ktor.openapigen.openAPIGen
 import com.papsign.ktor.openapigen.parameters.PathParamStyle
 import com.papsign.ktor.openapigen.route.apiRouting
 import com.papsign.ktor.openapigen.route.info
@@ -15,13 +14,10 @@ import com.papsign.ktor.openapigen.route.route
 import com.papsign.ktor.openapigen.schema.namer.DefaultSchemaNamer
 import com.papsign.ktor.openapigen.schema.namer.SchemaNamer
 import io.ktor.serialization.jackson.jackson
-import io.ktor.server.application.application
-import io.ktor.server.application.call
 import io.ktor.server.application.install
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.server.response.respond
 import io.ktor.server.response.respondRedirect
 import io.ktor.server.routing.get
 import io.ktor.server.routing.routing
@@ -92,7 +88,7 @@ object Basic {
                         info("String Post Endpoint", "This is a String Post Endpoint"),
                         exampleRequest = setOf(StringUsable("Ho")),
                         exampleResponse = StringUsable("Ho")
-                    ) { params, body ->
+                    ) { _, body ->
                         respond(body.first())
                     }
                 }
@@ -110,8 +106,8 @@ object Basic {
     // Path works like the @Location from locations, but for transparency we recommend only using it to extract the parameters
     @Path("string/{a}")
     data class StringParam(
-        @PathParam("A simple String Param", style = PathParamStyle.matrix) val a: String,
-        @QueryParam("Optional String") val optional: A? // Nullable Types are optional
+        @param:PathParam("A simple String Param", style = PathParamStyle.matrix) val a: String,
+        @param:QueryParam("Optional String") val optional: A? // Nullable Types are optional
     )
 
     data class A(val b: String)

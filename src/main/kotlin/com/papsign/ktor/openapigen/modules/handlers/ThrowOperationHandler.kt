@@ -42,11 +42,11 @@ object ThrowOperationHandler : OperationModule {
                 }
                 val examples =  it.value.mapNotNull { (_, second) ->
                     second.example
-                }.withIndex().associate { (idx, value) -> "Example $idx" to ExampleModel(value) }.toMutableMap()
+                }.withIndex().associate { (idx, value) -> "Example $idx" to ExampleModel<Any?>(value) }.toMutableMap()
                 if (examples.size <= 1) {
-                    MediaTypeModel(schema, example = examples.values.firstOrNull()?.value)
+                    MediaTypeModel(schema as SchemaModel<Any?>?, example = examples.values.firstOrNull()?.value)
                 } else {
-                    MediaTypeModel(schema, examples = examples)
+                    MediaTypeModel(schema as SchemaModel<Any?>?, examples = examples)
                 }
             }.toMutableMap()
             val statusCode = exceptions.key

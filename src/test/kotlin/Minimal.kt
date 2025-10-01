@@ -4,7 +4,6 @@ import com.papsign.ktor.openapigen.annotations.Request
 import com.papsign.ktor.openapigen.annotations.Response
 import com.papsign.ktor.openapigen.annotations.parameters.PathParam
 import com.papsign.ktor.openapigen.annotations.parameters.QueryParam
-import com.papsign.ktor.openapigen.openAPIGen
 import com.papsign.ktor.openapigen.route.apiRouting
 import com.papsign.ktor.openapigen.route.info
 import com.papsign.ktor.openapigen.route.path.normal.get
@@ -13,17 +12,13 @@ import com.papsign.ktor.openapigen.route.response.respond
 import com.papsign.ktor.openapigen.route.route
 import com.papsign.ktor.openapigen.schema.namer.DefaultSchemaNamer
 import com.papsign.ktor.openapigen.schema.namer.SchemaNamer
-import io.ktor.serialization.jackson.jackson
-import io.ktor.server.application.application
-import io.ktor.server.application.call
-import io.ktor.server.application.install
-import io.ktor.server.engine.embeddedServer
-import io.ktor.server.netty.Netty
-import io.ktor.server.plugins.contentnegotiation.ContentNegotiation
-import io.ktor.server.response.respond
-import io.ktor.server.response.respondRedirect
-import io.ktor.server.routing.get
-import io.ktor.server.routing.routing
+import io.ktor.serialization.jackson.*
+import io.ktor.server.application.*
+import io.ktor.server.engine.*
+import io.ktor.server.netty.*
+import io.ktor.server.plugins.contentnegotiation.*
+import io.ktor.server.response.*
+import io.ktor.server.routing.*
 import kotlin.reflect.KType
 
 object Minimal {
@@ -88,7 +83,7 @@ object Minimal {
                         info("String Post Endpoint", "This is a String Post Endpoint"),
                         exampleRequest = StringUsable("Ho"),
                         exampleResponse = StringUsable("Ho")
-                    ) { params, body ->
+                    ) { _, body ->
                         respond(body)
                     }
                 }
@@ -100,8 +95,8 @@ object Minimal {
     // Path works like the @Location from locations, but for transparency we recommend only using it to extract the parameters
     @Path("string/{a}")
     data class StringParam(
-        @PathParam("A simple String Param") val a: String,
-        @QueryParam("Optional String") val optional: String? // Nullable Types are optional
+        @param:PathParam("A simple String Param") val a: String,
+        @param:QueryParam("Optional String") val optional: String? // Nullable Types are optional
     )
 
     // A response can be any class, but a description will be generated from the annotation

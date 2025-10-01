@@ -2,10 +2,11 @@ import org.gradle.jvm.tasks.Jar
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.io.ByteArrayOutputStream
 import java.net.URL
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 
 plugins {
-    kotlin("jvm") version "2.2.10"
+    kotlin("jvm") version "2.2.20"
     `maven-publish`
     signing
     id("net.nemerosa.versioning") version "3.1.0"
@@ -36,7 +37,7 @@ fun getCheckedOutGitCommitHash(): String {
 }
 
 val ktorVersion = "3.3.0"
-val swaggerUiVersion = "5.27.0"
+val swaggerUiVersion = "5.28.1"
 val junitVersjon = "6.0.0"
 
 dependencies {
@@ -159,4 +160,8 @@ publishing {
             }
         }
     }
+}
+val compileTestKotlin: KotlinCompile by tasks
+compileTestKotlin.compilerOptions {
+    freeCompilerArgs.set(listOf("-Xannotation-default-target=param-property"))
 }
