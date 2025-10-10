@@ -44,7 +44,7 @@ jobs:
           tag_prefix: ""
 
       - id: notes
-        if: ${{ steps.tag.outputs.changed == 'true' }}
+        if: ${{ steps.tag.outputs.version_type != 'none' }}
         run: |
           randomDeliHmiter=${RANDOM}
           text=$(git --no-pager log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"%h %s" | sed ':a;N;$!ba;s/\n/\n\n/g')
@@ -53,13 +53,13 @@ jobs:
           echo '$randomDelimiter' >> $GITHUB_OUTPUT
 
       - name: Publish
-        if: ${{ steps.tag.outputs.changed == 'true' }}
+        if: ${{ steps.tag.outputs.version_type != 'none' }}
         run: gradle -Pversion=${{ steps.tag.outputs.version }} publish
         env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: actions/create-release@v1.1.4
-        if: ${{ steps.tag.outputs.changed == 'true' }}
+        if: ${{ steps.tag.outputs.version_type != 'none' }}
         id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
