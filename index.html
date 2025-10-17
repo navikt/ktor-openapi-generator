@@ -1,23 +1,23 @@
 <!DOCTYPE html>
-<html class="no-js">
+<html class="no-js" lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>Ktor OpenAPI/Swagger 3 Generator</title>
     <link href="images/logo-icon.svg" rel="icon" type="image/svg">
-    <script>var pathToRoot = "";</script>
-    <script>document.documentElement.classList.replace("no-js","js");</script>
+        <script>var pathToRoot = "";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
-    if (storage == null) {
+      if (storage == null) {
         const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
         if (osDarkSchemePreferred === true) {
-            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
         }
-    } else {
+      } else {
         const savedDarkMode = JSON.parse(storage)
-        if(savedDarkMode === true) {
-            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
         }
-    }
+      }
     </script>
 <script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
 <script type="text/javascript" src="scripts/sourceset_dependencies.js" async="async"></script>
@@ -25,20 +25,18 @@
 <link href="styles/main.css" rel="Stylesheet">
 <link href="styles/prism.css" rel="Stylesheet">
 <link href="styles/logo-styles.css" rel="Stylesheet">
-<link href="styles/font-jb-sans-auto.css" rel="Stylesheet">
 <link href="ui-kit/ui-kit.min.css" rel="Stylesheet">
-<script type="text/javascript" src="scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="scripts/safe-local-storage_blocking.js"></script>
 <script type="text/javascript" src="scripts/navigation-loader.js" async="async"></script>
 <script type="text/javascript" src="scripts/platform-content-handler.js" async="async"></script>
 <script type="text/javascript" src="scripts/main.js" defer="defer"></script>
 <script type="text/javascript" src="scripts/prism.js" async="async"></script>
 <script type="text/javascript" src="ui-kit/ui-kit.min.js" defer="defer"></script>
-<script type="text/javascript" src="scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
 </head>
 <body>
-    <div class="root">
-    <nav class="navigation theme-dark" id="navigation-wrapper">
-            <a class="library-name--link" href="index.html">
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+            <a class="library-name--link" href="index.html" tabindex="1">
                     Ktor OpenAPI/Swagger 3 Generator
             </a>
         <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
@@ -48,8 +46,8 @@
         <div class="library-version" id="library-version">
 1.0.131        </div>
         <div class="navigation-controls">
-        <div class="filter-section filter-section_loading" id="filter-section">
-                <button class="platform-tag platform-selector jvm-like" data-active=""
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector jvm-like" data-active="" aria-pressed="true"
                         data-filter=":/main">jvm</button>
             <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
                 <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
@@ -59,9 +57,9 @@
                         aria-expanded="false"
                         aria-label="Toggle source sets"
                 ></button>
-                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
-                    <div class="dropdown--header"><span>Platform filter</span>
-                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
                             <i class="ui-kit-icon ui-kit-icon_cross"></i>
                         </button>
                     </div>
@@ -76,7 +74,7 @@
                 </ul>
                 <div class="dropdown--overlay"></div>
             </div>
-        </div>
+        </ul>
             <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
                     type="button">Switch theme
             </button>
@@ -84,26 +82,28 @@
                 API
             </div>
         </div>
-    </nav>
-        <div id="container">
-            <div class="sidebar" id="leftColumn">
-                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
-                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
-                        data-role="dropdown-listbox">
-                        <div class="dropdown--header">
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config='{"defaultSize": 280, "minSize": 200, "maxSize": 400}'>
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                    data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
                             <span>
                                     Ktor OpenAPI/Swagger 3 Generator
                             </span>
-                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
-                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
-                            </button>
-                        </div>
-                        <div class="sidebar--inner" id="sideMenu"></div>
-                    </ul>
-                    <div class="dropdown--overlay"></div>
-                </div>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
             </div>
-            <div id="main">
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
 <div class="main-content" id="content" pageIds="Ktor OpenAPI/Swagger 3 Generator::////PointingToDeclaration//-251573632">
   <div class="breadcrumbs"></div>
   <div class="cover ">
@@ -111,7 +111,7 @@
   </div>
   <h2 class="">Packages</h2>
   <div class="table"><a data-name="1952309893%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen" id="1952309893%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -119,7 +119,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1952309893%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -129,7 +129,7 @@
       </div>
     </div>
 <a data-name="-623001413%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations" id="-623001413%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -137,7 +137,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-623001413%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -147,7 +147,7 @@
       </div>
     </div>
 <a data-name="-1020443635%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.encodings" id="-1020443635%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -155,7 +155,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1020443635%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -165,7 +165,7 @@
       </div>
     </div>
 <a data-name="-1338529637%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.mapping" id="-1338529637%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -173,7 +173,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1338529637%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -183,7 +183,7 @@
       </div>
     </div>
 <a data-name="149164545%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.parameters" id="149164545%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -191,7 +191,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="149164545%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -201,7 +201,7 @@
       </div>
     </div>
 <a data-name="-1936929384%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.properties.description" id="-1936929384%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -209,7 +209,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1936929384%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -219,7 +219,7 @@
       </div>
     </div>
 <a data-name="91424529%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type" id="91424529%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -227,7 +227,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="91424529%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -237,7 +237,7 @@
       </div>
     </div>
 <a data-name="166312492%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type.common" id="166312492%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -245,7 +245,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="166312492%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -255,7 +255,7 @@
       </div>
     </div>
 <a data-name="-469036670%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type.enum" id="-469036670%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -263,7 +263,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-469036670%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -273,7 +273,7 @@
       </div>
     </div>
 <a data-name="404509194%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type.number" id="404509194%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -281,7 +281,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="404509194%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -291,7 +291,7 @@
       </div>
     </div>
 <a data-name="-347238930%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type.number.floating" id="-347238930%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -299,7 +299,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-347238930%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -309,7 +309,7 @@
       </div>
     </div>
 <a data-name="185791483%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type.number.floating.clamp" id="185791483%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -317,7 +317,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="185791483%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -327,7 +327,7 @@
       </div>
     </div>
 <a data-name="-1649217820%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type.number.floating.max" id="-1649217820%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -335,7 +335,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1649217820%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -345,7 +345,7 @@
       </div>
     </div>
 <a data-name="-418348462%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type.number.floating.min" id="-418348462%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -353,7 +353,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-418348462%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -363,7 +363,7 @@
       </div>
     </div>
 <a data-name="1061304154%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type.number.integer" id="1061304154%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -371,7 +371,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1061304154%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -381,7 +381,7 @@
       </div>
     </div>
 <a data-name="-431629209%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type.number.integer.clamp" id="-431629209%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -389,7 +389,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-431629209%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -399,7 +399,7 @@
       </div>
     </div>
 <a data-name="723321424%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type.number.integer.max" id="723321424%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -407,7 +407,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="723321424%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -417,7 +417,7 @@
       </div>
     </div>
 <a data-name="1954190782%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type.number.integer.min" id="1954190782%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -425,7 +425,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1954190782%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -435,7 +435,7 @@
       </div>
     </div>
 <a data-name="-1702169860%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type.object.example" id="-1702169860%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -443,7 +443,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1702169860%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -453,7 +453,7 @@
       </div>
     </div>
 <a data-name="-779031342%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type.string" id="-779031342%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -461,7 +461,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-779031342%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -471,7 +471,7 @@
       </div>
     </div>
 <a data-name="939391822%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type.string.example" id="939391822%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -479,7 +479,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="939391822%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -489,7 +489,7 @@
       </div>
     </div>
 <a data-name="-290879866%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type.string.length" id="-290879866%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -497,7 +497,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-290879866%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -507,7 +507,7 @@
       </div>
     </div>
 <a data-name="-1536658347%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type.string.lowercase" id="-1536658347%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -515,7 +515,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1536658347%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -525,7 +525,7 @@
       </div>
     </div>
 <a data-name="-667037196%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type.string.pattern" id="-667037196%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -533,7 +533,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-667037196%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -543,7 +543,7 @@
       </div>
     </div>
 <a data-name="-1766005694%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.annotations.type.string.trim" id="-1766005694%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -551,7 +551,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1766005694%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -561,7 +561,7 @@
       </div>
     </div>
 <a data-name="-491138916%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.content.type" id="-491138916%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -569,7 +569,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-491138916%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -579,7 +579,7 @@
       </div>
     </div>
 <a data-name="1503264983%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.content.type.binary" id="1503264983%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -587,7 +587,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1503264983%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -597,7 +597,7 @@
       </div>
     </div>
 <a data-name="-1016721630%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.content.type.ktor" id="-1016721630%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -605,7 +605,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1016721630%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -615,7 +615,7 @@
       </div>
     </div>
 <a data-name="-902740262%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.content.type.multipart" id="-902740262%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -623,7 +623,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-902740262%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -633,7 +633,7 @@
       </div>
     </div>
 <a data-name="-1110836847%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.exceptions" id="-1110836847%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -641,7 +641,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1110836847%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -651,7 +651,7 @@
       </div>
     </div>
 <a data-name="1103894164%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.interop" id="1103894164%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -659,7 +659,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1103894164%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -669,7 +669,7 @@
       </div>
     </div>
 <a data-name="715276352%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.model" id="715276352%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -677,7 +677,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="715276352%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -687,7 +687,7 @@
       </div>
     </div>
 <a data-name="1902906243%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.model.base" id="1902906243%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -695,7 +695,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1902906243%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -705,7 +705,7 @@
       </div>
     </div>
 <a data-name="-1849647328%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.model.info" id="-1849647328%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -713,7 +713,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1849647328%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -723,7 +723,7 @@
       </div>
     </div>
 <a data-name="1920702073%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.model.operation" id="1920702073%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -731,7 +731,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1920702073%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -741,7 +741,7 @@
       </div>
     </div>
 <a data-name="648794707%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.model.schema" id="648794707%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -749,7 +749,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="648794707%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -759,7 +759,7 @@
       </div>
     </div>
 <a data-name="1106556722%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.model.security" id="1106556722%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -767,7 +767,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1106556722%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -777,7 +777,7 @@
       </div>
     </div>
 <a data-name="1566844277%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.model.server" id="1566844277%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -785,7 +785,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1566844277%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -795,7 +795,7 @@
       </div>
     </div>
 <a data-name="-914159138%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.modules" id="-914159138%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -803,7 +803,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-914159138%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -813,7 +813,7 @@
       </div>
     </div>
 <a data-name="-901322435%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.modules.handlers" id="-901322435%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -821,7 +821,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-901322435%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -831,7 +831,7 @@
       </div>
     </div>
 <a data-name="198012672%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.modules.openapi" id="198012672%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -839,7 +839,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="198012672%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -849,7 +849,7 @@
       </div>
     </div>
 <a data-name="1130787346%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.modules.providers" id="1130787346%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -857,7 +857,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1130787346%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -867,7 +867,7 @@
       </div>
     </div>
 <a data-name="2011287031%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.parameters" id="2011287031%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -875,7 +875,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2011287031%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -885,7 +885,7 @@
       </div>
     </div>
 <a data-name="2070982980%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.parameters.handlers" id="2070982980%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -893,7 +893,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2070982980%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -903,7 +903,7 @@
       </div>
     </div>
 <a data-name="-1660238515%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.parameters.parsers.builders" id="-1660238515%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -911,7 +911,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1660238515%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -921,7 +921,7 @@
       </div>
     </div>
 <a data-name="1080113298%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.parameters.parsers.builders.header.simple" id="1080113298%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -929,7 +929,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1080113298%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -939,7 +939,7 @@
       </div>
     </div>
 <a data-name="-410317584%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.parameters.parsers.builders.path.label" id="-410317584%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -947,7 +947,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-410317584%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -957,7 +957,7 @@
       </div>
     </div>
 <a data-name="-1168877943%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.parameters.parsers.builders.path.matrix" id="-1168877943%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -965,7 +965,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1168877943%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -975,7 +975,7 @@
       </div>
     </div>
 <a data-name="-858622662%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.parameters.parsers.builders.path.simple" id="-858622662%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -983,7 +983,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-858622662%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -993,7 +993,7 @@
       </div>
     </div>
 <a data-name="1937763158%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.parameters.parsers.builders.query.deepobject" id="1937763158%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1001,7 +1001,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1937763158%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1011,7 +1011,7 @@
       </div>
     </div>
 <a data-name="1692729714%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.parameters.parsers.builders.query.delimited" id="1692729714%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1019,7 +1019,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1692729714%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1029,7 +1029,7 @@
       </div>
     </div>
 <a data-name="543733359%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.parameters.parsers.builders.query.form" id="543733359%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1037,7 +1037,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="543733359%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1047,7 +1047,7 @@
       </div>
     </div>
 <a data-name="-236630168%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.parameters.parsers.converters" id="-236630168%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1055,7 +1055,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-236630168%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1065,7 +1065,7 @@
       </div>
     </div>
 <a data-name="-816629528%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.parameters.parsers.converters.collection" id="-816629528%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1073,7 +1073,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-816629528%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1083,7 +1083,7 @@
       </div>
     </div>
 <a data-name="1331849801%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.parameters.parsers.converters.object" id="1331849801%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1091,7 +1091,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1331849801%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1101,7 +1101,7 @@
       </div>
     </div>
 <a data-name="1423813409%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.parameters.parsers.converters.primitive" id="1423813409%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1109,7 +1109,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1423813409%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1119,7 +1119,7 @@
       </div>
     </div>
 <a data-name="-1376823779%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.parameters.util" id="-1376823779%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1127,7 +1127,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1376823779%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1137,7 +1137,7 @@
       </div>
     </div>
 <a data-name="-595308704%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.route" id="-595308704%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1145,7 +1145,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-595308704%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1155,7 +1155,7 @@
       </div>
     </div>
 <a data-name="1627941817%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.route.modules" id="1627941817%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1163,7 +1163,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1627941817%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1173,7 +1173,7 @@
       </div>
     </div>
 <a data-name="-1452811901%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.route.path.auth" id="-1452811901%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1181,7 +1181,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1452811901%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1191,7 +1191,7 @@
       </div>
     </div>
 <a data-name="-2009743934%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.route.path.normal" id="-2009743934%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1199,7 +1199,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2009743934%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1209,7 +1209,7 @@
       </div>
     </div>
 <a data-name="-1545791021%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.route.response" id="-1545791021%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1217,7 +1217,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1545791021%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1227,7 +1227,7 @@
       </div>
     </div>
 <a data-name="-1293791660%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.route.util" id="-1293791660%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1235,7 +1235,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1293791660%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1245,7 +1245,7 @@
       </div>
     </div>
 <a data-name="2091273691%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.schema.builder" id="2091273691%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1253,7 +1253,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2091273691%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1263,7 +1263,7 @@
       </div>
     </div>
 <a data-name="961506152%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.schema.builder.provider" id="961506152%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1271,7 +1271,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="961506152%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1281,7 +1281,7 @@
       </div>
     </div>
 <a data-name="1635018247%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.schema.namer" id="1635018247%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1289,7 +1289,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1635018247%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1299,7 +1299,7 @@
       </div>
     </div>
 <a data-name="675939474%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.schema.processor" id="675939474%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1307,7 +1307,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="675939474%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1317,7 +1317,7 @@
       </div>
     </div>
 <a data-name="1212035014%2FPackages%2F-251573632" anchor-label="com.papsign.ktor.openapigen.validation" id="1212035014%2FPackages%2F-251573632" data-filterable-set=":/main"></a>
-    <div class="table-row" data-filterable-current=":/main" data-filterable-set=":/main">
+    <div class="table-row table-row_platform-tagged" data-filterable-current=":/main" data-filterable-set=":/main">
       <div>
         <div class="main-subrow ">
           <div class=""><span class="inline-flex">
@@ -1325,7 +1325,7 @@
 <span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1212035014%2FPackages%2F-251573632"></span>
                 <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
               </span></span></div>
-          <div class="pull-right">
+          <div class="pull-right platform-tags--wrapper">
             <div class="platform-tags no-gutters">
               <div class="platform-tag jvm-like">jvm</div>
             </div>
@@ -1337,17 +1337,21 @@
   </div>
 </div>
     <div class="footer">
-        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
-        <span>© 2025 Copyright</span>
-        <span class="pull-right">
-            <span>Generated by </span>
-            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
-                <span>dokka</span>
-            </a>
-        </span>
-    </div>
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2025 Copyright</div>
+                </div>
             </div>
         </div>
     </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
