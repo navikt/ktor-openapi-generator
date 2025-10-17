@@ -10,7 +10,7 @@ plugins {
     `maven-publish`
     signing
     id("net.nemerosa.versioning") version "3.1.0"
-    id("org.jetbrains.dokka") version "2.0.0"
+    id("org.jetbrains.dokka") version "2.1.0"
 }
 
 group = "no.nav"
