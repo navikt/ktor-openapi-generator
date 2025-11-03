@@ -37,7 +37,7 @@ fun getCheckedOutGitCommitHash(): String {
 }
 
 val ktorVersion = "3.3.1"
-val swaggerUiVersion = "5.30.0"
+val swaggerUiVersion = "5.30.1"
 val junitVersjon = "6.0.1"
 
 dependencies {
