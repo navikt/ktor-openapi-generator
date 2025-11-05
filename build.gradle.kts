@@ -36,7 +36,7 @@ fun getCheckedOutGitCommitHash(): String {
     return runCommand("git rev-parse --verify HEAD")
 }
 
-val ktorVersion = "3.3.1"
+val ktorVersion = "3.3.2"
 val swaggerUiVersion = "5.30.1"
 val junitVersjon = "6.0.1"
 
