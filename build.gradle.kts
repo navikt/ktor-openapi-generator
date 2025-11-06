@@ -1,7 +1,4 @@
 import org.gradle.jvm.tasks.Jar
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import java.io.ByteArrayOutputStream
-import java.net.URL
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 
