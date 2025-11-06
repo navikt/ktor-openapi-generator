@@ -17,10 +17,6 @@ group = "no.nav"
 base.archivesName.set("ktor-open-api")
 version = project.findProperty("version")?.toString() ?: ("1.0.0-" + getCheckedOutGitCommitHash())
 
-repositories {
-    mavenCentral()
-}
-
 fun runCommand(command: String): String {
     val execResult = providers.exec {
         commandLine(command.split("\\s".toRegex()))
@@ -77,15 +73,6 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersjon") // generated parameters for tests
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersjon") // testing runtime
 }
-
-kotlin {
-    jvmToolchain(21)
-    compilerOptions {
-        jvmTarget.set(JvmTarget.JVM_21)
-        apiVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_0)
-    }
-}
-
 
 tasks {
     withType<Test> {
@@ -165,3 +152,21 @@ val compileTestKotlin: KotlinCompile by tasks
 compileTestKotlin.compilerOptions {
     freeCompilerArgs.set(listOf("-Xannotation-default-target=param-property"))
 }
+
+
+kotlin {
+    jvmToolchain(21)
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21)
+        apiVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_2)
+        languageVersion.set(org.jetbrains.kotlin.gradle.dsl.KotlinVersion.KOTLIN_2_2)
+    }
+}
+
+// Pass på at når vi kaller JavaExec eller Test tasks så bruker vi samme språk-versjon som vi kompilerer til
+val toolchainLauncher = javaToolchains.launcherFor {
+    languageVersion.set(JavaLanguageVersion.of(21))
+}
+tasks.withType<Test>().configureEach { javaLauncher.set(toolchainLauncher) }
+tasks.withType<JavaExec>().configureEach { javaLauncher.set(toolchainLauncher) }
+
