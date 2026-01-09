@@ -1,11 +1,8 @@
 package com.papsign.ktor.openapigen.schema.builder.provider
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.papsign.ktor.openapigen.OpenAPIGen
-import com.papsign.ktor.openapigen.OpenAPIGenModuleExtension
-import com.papsign.ktor.openapigen.classLogger
-import com.papsign.ktor.openapigen.getKType
-import com.papsign.ktor.openapigen.memberProperties
+import com.fasterxml.jackson.annotation.JsonValue
+import com.papsign.ktor.openapigen.*
 import com.papsign.ktor.openapigen.model.schema.SchemaModel
 import com.papsign.ktor.openapigen.modules.DefaultOpenAPIModule
 import com.papsign.ktor.openapigen.modules.ModuleProvider
@@ -15,20 +12,15 @@ import com.papsign.ktor.openapigen.schema.builder.SchemaBuilder
 import com.papsign.ktor.openapigen.schema.builder.provider.DefaultObjectSchemaProvider.branches
 import com.papsign.ktor.openapigen.schema.namer.DefaultSchemaNamer
 import com.papsign.ktor.openapigen.schema.namer.SchemaNamer
-import kotlin.reflect.KClass
-import kotlin.reflect.KClassifier
-import kotlin.reflect.KType
-import kotlin.reflect.KTypeParameter
-import kotlin.reflect.KTypeProjection
-import kotlin.reflect.KVariance
-import kotlin.reflect.KVisibility
+import kotlin.reflect.*
 import kotlin.reflect.full.createType
 import kotlin.reflect.full.hasAnnotation
 import kotlin.reflect.full.starProjectedType
 import kotlin.reflect.full.withNullability
 import kotlin.reflect.jvm.jvmErasure
 
-object DefaultObjectSchemaProvider : SchemaBuilderProviderModule, OpenAPIGenModuleExtension, DefaultOpenAPIModule {
+object DefaultObjectSchemaProvider : SchemaBuilderProviderModule, OpenAPIGenModuleExtension,
+    DefaultOpenAPIModule {
     private val log = classLogger()
 
     override fun provide(apiGen: OpenAPIGen, provider: ModuleProvider<*>): List<SchemaBuilder> {
@@ -46,7 +38,8 @@ object DefaultObjectSchemaProvider : SchemaBuilderProviderModule, OpenAPIGenModu
         return listOf(Builder(apiGen, namer))
     }
 
-    private class Builder(private val apiGen: OpenAPIGen, private val namer: SchemaNamer) : SchemaBuilder {
+    private class Builder(private val apiGen: OpenAPIGen, private val namer: SchemaNamer) :
+        SchemaBuilder {
 
         override val superType: KType = getKType<Any?>()
 
@@ -68,19 +61,44 @@ object DefaultObjectSchemaProvider : SchemaBuilderProviderModule, OpenAPIGenModu
             val name = namer[nonNullType]
             val ref = SchemaModel.SchemaModelRef<Any?>("#/components/schemas/$name")
             refs[nonNullType] = ref // needed to prevent infinite recursion
+
             val new = if (erasure.isSealed) {
-                SchemaModel.OneSchemaModelOf(erasure.sealedSubclasses.map { builder.build(branches(nonNullType, it)) })
+                SchemaModel.OneSchemaModelOf(erasure.sealedSubclasses.map {
+                    builder.build(
+                        branches(
+                            nonNullType,
+                            it
+                        )
+                    )
+                })
             } else {
-                val props = type.memberProperties.filter { it.source.visibility == KVisibility.PUBLIC }
-                    .filterNot { it.type.hasAnnotation<JsonIgnore>() }
-                SchemaModel.SchemaModelObj<Any?>(
-                    props.associate {
-                        Pair(it.name, builder.build(it.type, it.source.annotations))
-                    },
-                    props.filter {
-                        !it.type.isMarkedNullable
-                    }.map { it.name }
-                )
+                val props =
+                    type.memberProperties.filter { it.source.visibility == KVisibility.PUBLIC }
+                        .filterNot { it.type.hasAnnotation<JsonIgnore>() }
+
+                val jsonValueProperty = props.firstOrNull { prop ->
+                    prop.source.hasAnnotation<JsonValue>() ||
+                            prop.source.annotations.any { it is JsonValue } ||
+                            try {
+                                erasure.java.getDeclaredField(prop.name)
+                                    .isAnnotationPresent(JsonValue::class.java)
+                            } catch (_: Exception) {
+                                false
+                            }
+                }
+
+                if (jsonValueProperty != null) {
+                    builder.build(jsonValueProperty.type, jsonValueProperty.source.annotations)
+                } else {
+                    SchemaModel.SchemaModelObj(
+                        props.associate {
+                            Pair(it.name, builder.build(it.type, it.source.annotations))
+                        },
+                        props.filter {
+                            !it.type.isMarkedNullable
+                        }.map { it.name }
+                    )
+                }
             }
             val final = finalize(new)
             val existing = apiGen.api.components.schemas[name]
@@ -126,10 +144,12 @@ object DefaultObjectSchemaProvider : SchemaBuilderProviderModule, OpenAPIGenModu
             }.fold(mapOf(), ::mergeUnifiers)
 
         return try {
-            subclass.createType(subclass.typeParameters.map { KTypeProjection(KVariance.INVARIANT,
-                requireNotNull(unifier[it]) {" unifier missing for $it (unifier $unifier)"} )
+            subclass.createType(subclass.typeParameters.map {
+                KTypeProjection(
+                    KVariance.INVARIANT,
+                    requireNotNull(unifier[it]) { " unifier missing for $it (unifier $unifier)" })
             })
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             log.warn("unable to specialize $subclass of $parentType")
             /* fallback */
             subclass.starProjectedType
@@ -150,7 +170,7 @@ object DefaultObjectSchemaProvider : SchemaBuilderProviderModule, OpenAPIGenModu
             for ((k, v) in u2) {
                 val existing = u1[k]
                 if (existing != null) {
-                    check (existing == v) { "not unifiable" }
+                    check(existing == v) { "not unifiable" }
                 }
                 put(k, v)
             }
