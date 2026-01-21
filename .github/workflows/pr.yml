@@ -21,4 +21,5 @@ jobs:
               with:
                   gradle-version: wrapper
             - name: Bygg & test
+              working-directory: ktor-openapi-generator                
               run: gradle test --continue --configuration-cache --stacktrace --info

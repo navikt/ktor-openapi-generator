@@ -13,7 +13,7 @@ updates:
     schedule:
       interval: daily
   - package-ecosystem: gradle
-    directory: /
+    directory: /ktor-openapi-generator
     schedule:
       interval: daily
     registries:

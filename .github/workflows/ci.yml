@@ -31,10 +31,10 @@ jobs:
           gradle-version: wrapper
 
       - name: Build lib
-        run: gradle assemble
+        run: cd ktor-openapi-generator && gradle assemble
 
       - name: Run tests
-        run: gradle test --info
+        run: cd ktor-openapi-generator &&  gradle test --info
 
       - uses: paulhatch/semantic-version@v6.0.0
         id: tag
@@ -45,6 +45,7 @@ jobs:
 
       - id: notes
         if: ${{ steps.tag.outputs.version_type != 'none' }}
+        working-directory: ktor-openapi-generator
         run: |
           randomDeliHmiter=${RANDOM}
           text=$(git --no-pager log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"%h %s" | sed ':a;N;$!ba;s/\n/\n\n/g')
@@ -54,6 +55,7 @@ jobs:
 
       - name: Publish
         if: ${{ steps.tag.outputs.version_type != 'none' }}
+        working-directory: ktor-openapi-generator
         run: gradle -Pversion=${{ steps.tag.outputs.version }} publish
         env:
          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -71,9 +73,11 @@ jobs:
             ${{ steps.notes.outputs.CHANGELOG }}
 
       - name: Generate API documentation
+        working-directory: ktor-openapi-generator          
         run: gradle -Pversion=${{ steps.tag.outputs.version }} :dokkaGenerate
 
       - name: Deploy API documentation to Github Pages
+        working-directory: ktor-openapi-generator          
         uses: JamesIves/github-pages-deploy-action@v4.8.0
         with:
           folder: build/docs
