@@ -1,5 +1,18 @@
 # Ktor OpenAPI Generator
 
+⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+
+DEPRECATED: Replaced by
+
+```kotlin
+dependencies {
+    implementation("no.nav.aap.kelvin:ktor-openapi-generator:----")
+}
+```
+⚠️⚠️⚠️⚠️⚠️⚠️⚠️⚠️
+
+
+
 The Ktor OpenAPI Generator is a library to automatically generate the descriptor as you route your ktor application.
 
 ```kotlin
